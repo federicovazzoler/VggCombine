@@ -1,0 +1,8 @@
+html
+cards
+*.d
+*.so
+*.pcm
+.*.swp
+*.exe
+*.root
