@@ -3,8 +3,6 @@ Combine scripts for the Vgg analysis
 
 To set up the package (before cloning this repo!):
 
-export SCRAM_ARCH=slc7_amd64_gcc700
-
 cmsrel CMSSW_10_2_13
 
 cd CMSSW_10_2_13/src
