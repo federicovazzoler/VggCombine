@@ -28,3 +28,5 @@ bash <(curl -s https://raw.githubusercontent.com/cms-analysis/CombineHarvester/m
 scramv1 b clean; scramv1 b
 
 git clone git@github.com:federicovazzoler/VggCombine.git
+
+link your html directory
