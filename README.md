@@ -30,3 +30,5 @@ scramv1 b clean; scramv1 b
 git clone git@github.com:federicovazzoler/VggCombine.git
 
 link your html directory
+
+create all the needed datacards
