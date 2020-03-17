@@ -1,6 +1,8 @@
 # VggCombine
 Combine scripts for the Vgg analysis
 
+Please refer to this tutorial: https://twiki.cern.ch/twiki/bin/viewauth/CMS/HiggsWG/HCombExercise
+
 To set up the package (before cloning this repo!):
 
 `cmsrel CMSSW_10_2_13`
