@@ -104,8 +104,6 @@ for i in range(0,nPoints):
   h_dat.GetPoint(i, x, y)
   h_ratio.Fill(x,y)
 
-nBins = h_ratio.GetNbinsX()
-print nBins
 for i in range(0,h_ratio.GetNbinsX() + 1):
   h_ratio.SetBinError(i, TMath.Sqrt(h_ratio.GetBinContent(i)))   
 
