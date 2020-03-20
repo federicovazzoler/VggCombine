@@ -8,8 +8,11 @@ FOLDER="../html/combine_plots/likelihood_scan/GoodnessOfFit/${BOSON}_${CHANNEL}_
 mkdir -p ${FOLDER}
 
 #clean
+rm *.txt
+rm *.pdf
 rm *.root
 rm combine_logger.out
+rm ${FOLDER}/*.pdf
 rm ${FOLDER}/*.txt
 
 nTOYS=500
@@ -27,3 +30,4 @@ mv higgsCombineTest.GoodnessOfFit.mH120*.root ${BOSON}_${CHANNEL}_${YEAR}_Goodne
 #p-value
 python p_value.py ${BOSON} ${CHANNEL} ${YEAR} ${nTOYS} 
 cp ${BOSON}_${CHANNEL}_${YEAR}_p_value.txt ${FOLDER}/
+cp ${BOSON}_${CHANNEL}_${YEAR}_p_value.pdf ${FOLDER}/
