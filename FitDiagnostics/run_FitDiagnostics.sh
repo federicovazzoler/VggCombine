@@ -13,6 +13,8 @@ rm ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind.root
 rm ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root
 rm higgsCombineTest.FitDiagnostics*
 rm combine_logger.out
+rm ${FOLDER}/*.txt
+rm ${FOLDER}/*.pdf
 
 #build workspace
 text2workspace.py ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt  -o ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
@@ -30,7 +32,7 @@ python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind ${CHANNEL} pre
 python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind ${CHANNEL} postfit ${FOLDER} blind
 
 #run fit diagnostic unblinded
-combine -M FitDiagnostics ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 125 --rMin -2 --rMax 2 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0 -v 2 > ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.txt
+combine -M FitDiagnostics ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 125 --rMin -2 --rMax 2 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0 -v 3 --cminDefaultMinimizerType Minuit --cminDefaultMinimizerAlgo Scan > ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.txt
 mv fitDiagnostics.root ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root
 
 mv ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.txt ${FOLDER}
