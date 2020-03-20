@@ -19,7 +19,7 @@ combine -M MultiDimFit ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 200 --rMin 
 
 combine -M MultiDimFit ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -n .snapshot -m 200 --rMin -1 --rMax 10 --saveWorkspace --robustFit=1
 
-combine -M MultiDimFit higgsCombine.snapshot.MultiDimFit.mH200.root -n .freezeAll -m 200 --rMin -1 --rMax 10 --algo grid --points 1000 --freezeParameters lumi,eg_misid,pileup,jec,jer,sf_ele_eff,sf_ele_reco,sf_ele_trig,sf_muo_id,sf_muo,iso,sf_muo,trig,sf_pho_eff,sf_pho_veto,l1prefiringi,jet_misid --snapshotName MultiDimFit --robustFit=1
+combine -M MultiDimFit higgsCombine.snapshot.MultiDimFit.mH200.root -n .freezeAll -m 200 --rMin -1 --rMax 10 --algo grid --points 1000 --freezeParameters pileup,jec,jer,sf_ele_eff,sf_ele_reco,sf_ele_trig,sf_muo_id,sf_muo_iso,sf_muo_trig,sf_pho_eff,sf_pho_veto,l1prefiring,eg_misid,jet_misid --snapshotName MultiDimFit --robustFit=1
 
 python plot1DScan.py higgsCombineTest.MultiDimFit.mH200.root --others 'higgsCombine.freezeAll.MultiDimFit.mH200.root:FreezeAll:2' -o ${BOSON}_${CHANNEL}_${YEAR}_signalstrength --breakdown Syst,Stat
 cp ${BOSON}_${CHANNEL}_${YEAR}_signalstrength.pdf ${FOLDER}
