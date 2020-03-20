@@ -32,12 +32,12 @@ canvas.cd()
 f_toys.limit.Draw("limit")
 canvas.SaveAs(boson + "_" + channel + "_" + year + "_" + "p_value.pdf")
 
-p_value = float(num)/float(nToys)
+p_value = float(num)/float(nToys)*100
 
 output_file  = open(boson + "_" + channel + "_" + year + "_" + "p_value.txt","w")
 
-output_file.write("Measured lambda_0 : %2f\n" % lambda_0)
+output_file.write("Measured lambda_0 : %.2f\n" % lambda_0)
 output_file.write("Number of toys    : %i\n" % int(nToys))
-output_file.write("Measured p_value  : %2f\n" % p_value)
+output_file.write("Measured p_value  : %.2f %%\n" % p_value)
 
 output_file.close()
