@@ -27,6 +27,11 @@ for event in f_toys.limit :
   if event.limit > lambda_0 :
     num = num + 1
 
+canvas = ROOT.TCanvas("canvas","canvas",10, 10, 800, 600)
+canvas.cd()
+f_toys.limit.Draw("limit")
+canvas.SaveAs(boson + "_" + channel + "_" + year + "_" + "p_value.pdf")
+
 p_value = float(num)/float(nToys)
 
 output_file  = open(boson + "_" + channel + "_" + year + "_" + "p_value.txt","w")
