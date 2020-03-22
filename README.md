@@ -2,6 +2,7 @@
 Combine scripts for the Vgg analysis
 
 Please refer to this tutorial: https://twiki.cern.ch/twiki/bin/viewauth/CMS/HiggsWG/HCombExercise
+and to this presentation: https://indico.cern.ch/event/747340/contributions/3198653/attachments/1744339/2823486/HComb-Tutorial-FitDiagnostics.pdf
 
 To set up the package (before cloning this repo!):
 
