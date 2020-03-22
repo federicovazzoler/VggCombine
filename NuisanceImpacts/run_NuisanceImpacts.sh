@@ -14,6 +14,8 @@ rm ${BOSON}_${CHANNEL}_${YEAR}_impacts.json
 rm higgsCombine_initialFit_Test*
 rm higgsCombine_paramFit_Test*
 rm ${BOSON}_${CHANNEL}_${YEAR}_impacts.pdf
+rm ${BOSON}_${CHANNEL}_${YEAR}_syst_unc.txt
+rm ${FOLDER}/*
 
 #build workspace
 text2workspace.py ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt  -o ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
@@ -35,3 +37,11 @@ cp ${BOSON}_${CHANNEL}_${YEAR}_impacts_blind.pdf ${FOLDER}
 #plot the result unblind
 plotImpacts.py -i ${BOSON}_${CHANNEL}_${YEAR}_impacts.json -o ${BOSON}_${CHANNEL}_${YEAR}_impacts -t rename.json
 cp ${BOSON}_${CHANNEL}_${YEAR}_impacts.pdf ${FOLDER}
+
+#plot the result unblind
+plotImpacts.py -i ${BOSON}_${CHANNEL}_${YEAR}_impacts.json -o ${BOSON}_${CHANNEL}_${YEAR}_impacts -t rename.json
+cp ${BOSON}_${CHANNEL}_${YEAR}_impacts.pdf ${FOLDER}
+
+#plot the result unblind
+python ExtractNuisance4Paper.py ${BOSON} ${CHANNEL} ${YEAR}
+cp ${BOSON}_${CHANNEL}_${YEAR}_syst_unc.txt ${FOLDER}
