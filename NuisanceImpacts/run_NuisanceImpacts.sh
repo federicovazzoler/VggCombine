@@ -28,6 +28,10 @@ combineTool.py -M Impacts -d ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 200 -
 #collect output and convert to json file
 combineTool.py -M Impacts -d ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 200 --rMin -10 --rMax 10 --robustFit 1 --output ${BOSON}_${CHANNEL}_${YEAR}_impacts.json
 
-#plot the result
+#plot the result blind
+plotImpacts.py -i ${BOSON}_${CHANNEL}_${YEAR}_impacts.json -o ${BOSON}_${CHANNEL}_${YEAR}_impacts_blind -t rename.json --blind
+cp ${BOSON}_${CHANNEL}_${YEAR}_impacts_blind.pdf ${FOLDER}
+
+#plot the result unblind
 plotImpacts.py -i ${BOSON}_${CHANNEL}_${YEAR}_impacts.json -o ${BOSON}_${CHANNEL}_${YEAR}_impacts -t rename.json
 cp ${BOSON}_${CHANNEL}_${YEAR}_impacts.pdf ${FOLDER}
