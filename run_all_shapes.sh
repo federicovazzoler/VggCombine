@@ -9,6 +9,7 @@ CHANNELS="ch_ele ch_muo"
 YEARS="2016 2017 2018 Run2"
 
 FLAGS=""
+FLAGS=$FLAGS" reference"
 FLAGS=$FLAGS" pileup"
 FLAGS=$FLAGS" jec"
 FLAGS=$FLAGS" jer"
@@ -31,7 +32,12 @@ for BOSON in ${BOSONS}; do
       mkdir -p html/combine_plots/syst_shape_plot/${BOSON}/${CHANNEL}/${YEAR}
       for FLAG in ${FLAGS}; do
         echo "--- ${FLAG}"
-        python plotSyst.py ${BOSON} ${CHANNEL} ${YEAR} ${FLAG}
+        if [[ "${FLAG}" == "reference" ]]; then
+          python number_of_events.py ${BOSON} ${CHANNEL} ${YEAR}
+          mv ${BOSON}_${CHANNEL}_${YEAR}_events_table.txt html/combine_plots/syst_shape_plot/${BOSON}/${CHANNEL}/${YEAR}
+        else
+          python plotSyst.py ${BOSON} ${CHANNEL} ${YEAR} ${FLAG}
+        fi
       done
       echo ""
     done
