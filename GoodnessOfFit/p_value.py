@@ -29,7 +29,22 @@ for event in f_toys.limit :
 
 canvas = ROOT.TCanvas("canvas","canvas",10, 10, 800, 600)
 canvas.cd()
+
 f_toys.limit.Draw("limit")
+
+pt = ROOT.TPaveText(0.6,0.2,0.8,0.4,"NDCNB");
+pt.AddText('nToys : %i' % int(nToys));
+pt.SetX1NDC(0.70);
+pt.SetX2NDC(0.90);
+pt.SetY1NDC(0.2);
+pt.SetY2NDC(0.6);
+pt.Draw('same');
+
+line = ROOT.TLine(lambda_0, 0., lambda_0, 5.0);
+line.SetLineColor(ROOT.kRed);
+line.SetLineWidth(2);
+line.Draw("same");
+
 canvas.SaveAs(boson + "_" + channel + "_" + year + "_" + "p_value.pdf")
 
 p_value = float(num)/float(nToys)*100
