@@ -18,6 +18,6 @@ data['params'].sort(key=lambda x: abs(x['impact_r']), reverse=True)
 output_file  = open(boson + "_" + channel + "_" + year + "_" + "syst_unc.txt","w")
 
 for p in xrange(len(data['params'])):
-  output_file.write("%s : %.4s %%\n" % (data['params'][p]['name'].ljust(spaces), data['params'][p]['impact_r']))
+  output_file.write("%s : %.2d %%\n" % (data['params'][p]['name'].ljust(spaces), float(data['params'][p]['impact_r']) * 100))
 
 output_file.close()
