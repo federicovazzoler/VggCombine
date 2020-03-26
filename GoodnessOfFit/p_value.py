@@ -23,31 +23,37 @@ for event in f_data.limit :
   lambda_0 = event.limit
 
 num = 0
+
+hist = ROOT.TH1D("hist","Lambda distribution",100,0.,20.)
+
 for event in f_toys.limit :
+  hist.Fill(event.limit)
   if event.limit > lambda_0 :
     num = num + 1
+
+p_value = float(num)/float(nToys)
 
 canvas = ROOT.TCanvas("canvas","canvas",10, 10, 800, 600)
 canvas.cd()
 
-f_toys.limit.Draw("limit")
+#f_toys.limit.Draw("limit")
+hist.GetXaxis().SetTitle("#lambda")
+hist.GetYaxis().SetTitle("events")
+hist.Draw()
 
-pt = ROOT.TPaveText(0.6,0.2,0.8,0.4,"NDCNB");
-pt.AddText('nToys : %i' % int(nToys));
-pt.SetX1NDC(0.70);
-pt.SetX2NDC(0.90);
-pt.SetY1NDC(0.2);
-pt.SetY2NDC(0.6);
+pt = ROOT.TPaveText(0.6,0.7,0.8,0.9,"NDCNB");
+pt.AddText("nToys  : %i" % int(nToys));
+pt.AddText("pValue : %.2f" % p_value);
 pt.Draw('same');
 
-line = ROOT.TLine(lambda_0, 0., lambda_0, 5.0);
+line = ROOT.TLine(lambda_0, 0., lambda_0, hist.GetMaximum()*0.5);
 line.SetLineColor(ROOT.kRed);
 line.SetLineWidth(2);
 line.Draw("same");
 
 canvas.SaveAs(boson + "_" + channel + "_" + year + "_" + "p_value.pdf")
 
-p_value = float(num)/float(nToys)*100
+p_value = p_value*100
 
 output_file  = open(boson + "_" + channel + "_" + year + "_" + "p_value.txt","w")
 
