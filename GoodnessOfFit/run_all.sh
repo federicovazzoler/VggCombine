@@ -1,9 +1,8 @@
 #!/bin/bash
 
 BOSONS="WGG ZGG"
-#BOSONS="ZGG"
 
-CHANNELS="ch_ele ch_muo"
+CHANNELS="ch_ele ch_muo ch_lep"
 
 YEARS="2016 2017 2018 Run2"
 
