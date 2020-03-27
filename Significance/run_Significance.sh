@@ -6,6 +6,7 @@ YEAR=$3
 
 FOLDER="../html/combine_plots/likelihood_scan/Significance/${BOSON}_${CHANNEL}_${YEAR}"
 mkdir -p ${FOLDER}
+rm ${FOLDER}/*
 
 #clean
 rm ${BOSON}_${CHANNEL}_${YEAR}_workspace.root

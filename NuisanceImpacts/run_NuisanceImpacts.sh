@@ -6,6 +6,7 @@ YEAR=$3
 
 FOLDER="../html/combine_plots/likelihood_scan/NuisanceImpacts/${BOSON}_${CHANNEL}_${YEAR}"
 mkdir -p ${FOLDER}
+rm ${FOLDER}/*
 
 #clean
 rm ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
@@ -15,7 +16,6 @@ rm higgsCombine_initialFit_Test*
 rm higgsCombine_paramFit_Test*
 rm ${BOSON}_${CHANNEL}_${YEAR}_impacts.pdf
 rm ${BOSON}_${CHANNEL}_${YEAR}_syst_unc.txt
-rm ${FOLDER}/*
 
 #build workspace
 text2workspace.py ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt  -o ${BOSON}_${CHANNEL}_${YEAR}_workspace.root

@@ -6,14 +6,13 @@ YEAR=$3
 
 FOLDER="../html/combine_plots/likelihood_scan/GoodnessOfFit/${BOSON}_${CHANNEL}_${YEAR}"
 mkdir -p ${FOLDER}
+rm ${FOLDER}/*
 
 #clean
 rm *.txt
 rm *.pdf
 rm *.root
 rm combine_logger.out
-rm ${FOLDER}/*.pdf
-rm ${FOLDER}/*.txt
 
 nTOYS=500
 

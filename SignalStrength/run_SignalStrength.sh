@@ -7,6 +7,7 @@ YEAR=$3
 
 FOLDER="../html/combine_plots/likelihood_scan/SignalStrength/${BOSON}_${CHANNEL}_${YEAR}"
 mkdir -p ${FOLDER}
+rm ${FOLDER}/*
 
 # fetch xsec from farmts
 echo "Downloading theoretical xsec from : ${URL}"
