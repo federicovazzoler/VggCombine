@@ -2,6 +2,10 @@
 
 ./run_all_shapes.sh
 
+cd cards
+./combine_channels.sh
+cd ..
+
 cd FitDiagnostics
 ./run_all.sh
 cd ..
