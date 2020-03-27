@@ -5,7 +5,6 @@ import re
 import json
 import ROOT
 import os
-import glob
 
 from CombineHarvester.CombineTools.combine.CombineToolBase import CombineToolBase
 try:
