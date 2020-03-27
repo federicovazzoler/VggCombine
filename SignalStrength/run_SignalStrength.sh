@@ -8,7 +8,7 @@ FOLDER="../html/combine_plots/likelihood_scan/SignalStrength/${BOSON}_${CHANNEL}
 mkdir -p ${FOLDER}
 
 rMin=-1
-rMax=10
+rMax=4
 nPoints=1000
 
 # build workspace
