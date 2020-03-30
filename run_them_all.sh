@@ -6,6 +6,10 @@ cd cards
 ./combine_channels.sh
 cd ..
 
+cd DatacardValidation
+./run_DatacardValidation.sh
+cd ..
+
 cd FitDiagnostics
 ./run_all.sh
 cd ..
