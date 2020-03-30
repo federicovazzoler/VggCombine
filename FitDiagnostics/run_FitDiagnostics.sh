@@ -10,8 +10,8 @@ rm ${FOLDER}/*
 
 #clean
 rm ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
-rm ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind.root
-rm ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root
+rm ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind*
+rm ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic*
 rm higgsCombineTest.FitDiagnostics*
 rm combine_logger.out
 
@@ -19,22 +19,50 @@ rm combine_logger.out
 text2workspace.py ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt  -o ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
 cp ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt ${FOLDER} 
 
-#run fit diagnostic blinded (fixed signal strenght = 1)
-combine -M FitDiagnostics ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 125 --rMin -2 --rMax 2 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0 -t -1 --expectSignal 1 -v 2 > ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind.txt
-mv fitDiagnostics.root ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind.root
-mv ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind.txt ${FOLDER}
+echo ""
+echo "run fit diagnostic blinded (fixed signal strenght = 0)"
+echo ""
+combine -M FitDiagnostics ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 125 --rMin -2 --rMax 2 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0 -t -1 --expectSignal 0 -v 2 --minos=all > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0.txt
+mv fitDiagnostics.root ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0.root
+
+#diffNuisances plot
+python diffNuisances.py -a ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0.root -g ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0_plots.root > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_diffNuisances_blind_mu0.txt
+
+python PlotDiffNuisances.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0_plots ${FOLDER}
 
 #plot prefit
-python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind ${CHANNEL} prefit ${FOLDER} blind
+python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0 ${CHANNEL} prefit ${FOLDER} blind_mu0
 
 #plot postfit
-python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind ${CHANNEL} postfit ${FOLDER} blind
+python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0 ${CHANNEL} postfit ${FOLDER} blind_mu0
 
-#run fit diagnostic unblinded
-combine -M FitDiagnostics ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 125 --rMin -2 --rMax 2 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0 -v 3 --cminDefaultMinimizerType Minuit --cminDefaultMinimizerAlgo Scan > ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.txt
+echo ""
+echo "run fit diagnostic blinded (fixed signal strenght = 1)"
+echo ""
+combine -M FitDiagnostics ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 125 --rMin -2 --rMax 2 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0 -t -1 --expectSignal 1 -v 2 --minos=all > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1.txt
+mv fitDiagnostics.root ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1.root
+
+#diffNuisances plot
+python diffNuisances.py -a ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1.root -g ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1_plots.root > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_diffNuisances_blind_mu1.txt
+
+python PlotDiffNuisances.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1_plots ${FOLDER}
+
+#plot prefit
+python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1 ${CHANNEL} prefit ${FOLDER} blind_mu1
+
+#plot postfit
+python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1 ${CHANNEL} postfit ${FOLDER} blind_mu1
+
+echo ""
+echo "run fit diagnostic unblinded"
+echo ""
+combine -M FitDiagnostics ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 125 --rMin -2 --rMax 2 --saveShapes --saveWithUncertainties --cminDefaultMinimizerStrategy 0 -v 3 --cminDefaultMinimizerType Minuit --cminDefaultMinimizerAlgo Scan --minos=all > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.txt
 mv fitDiagnostics.root ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root
 
-mv ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.txt ${FOLDER}
+#diffNuisances plot
+python diffNuisances.py -a ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root -g ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_plots.root > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_diffNuisances.txt
+
+python PlotDiffNuisances.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_plots ${FOLDER}
 
 #plot prefit
 python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic ${CHANNEL} prefit ${FOLDER}
