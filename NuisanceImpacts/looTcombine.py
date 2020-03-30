@@ -32,6 +32,7 @@ def all_free_parameters(file, wsp, mc, pois):
 ws = sys.argv[1]
 rMin = sys.argv[2]
 rMax = sys.argv[3]
+expSig = sys.argv[4]
 
 POI = 'r'
 
@@ -40,8 +41,8 @@ paramList = all_free_parameters(ws, 'w', 'ModelConfig', POI)
 #First fit to r with r fixed to 1 to obtain expected errors on r
 print 'Doing param : ' + POI
 print 'Launching combine as :'
-print 'combine -M MultiDimFit -n _initialFit_Test --algo singles --redefineSignalPOIs {0} --rMin {1} --rMax {2} --robustFit 1 -m 200 -d {3} -t -1 --expectSignal 1'.format(POI, rMin, rMax, ws)
-os.system('combine -M MultiDimFit -n _initialFit_Test --algo singles --redefineSignalPOIs {0} --rMin {1} --rMax {2} --robustFit 1 -m 200 -d {3} -t -1 --expectSignal 1'.format(POI, rMin, rMax, ws))
+print 'combine -M MultiDimFit -n _initialFit_Test --algo singles --redefineSignalPOIs {0} --rMin {1} --rMax {2} --robustFit 1 -m 200 -d {3} -t -1 --expectSignal {4}'.format(POI, rMin, rMax, ws, expSig)
+os.system('combine -M MultiDimFit -n _initialFit_Test --algo singles --redefineSignalPOIs {0} --rMin {1} --rMax {2} --robustFit 1 -m 200 -d {3} -t -1 --expectSignal {4}'.format(POI, rMin, rMax, ws, expSig))
 
 #Now every nuisance
 for param in paramList:
@@ -49,5 +50,5 @@ for param in paramList:
   print '-----------------------'
   print 'Doing param : ' + param
   print 'Launching combine as :'
-  print 'combine -M MultiDimFit -n _paramFit_Test_{0} --algo impact --redefineSignalPOIs {1} -P {2} --floatOtherPOIs 1 --saveInactivePOI 1 --rMin {3} --rMax {4} --robustFit 1 -m 200 -d {5} -t -1 --expectSignal 1'.format(param, POI, param, rMin, rMax, ws)
-  os.system('combine -M MultiDimFit -n _paramFit_Test_{0} --algo impact --redefineSignalPOIs {1} -P {2} --floatOtherPOIs 1 --saveInactivePOI 1 --rMin {3} --rMax {4} --robustFit 1 -m 200 -d {5} -t -1 --expectSignal 1'.format(param, POI, param, rMin, rMax, ws)) 
+  print 'combine -M MultiDimFit -n _paramFit_Test_{0} --algo impact --redefineSignalPOIs {1} -P {2} --floatOtherPOIs 1 --saveInactivePOI 1 --rMin {3} --rMax {4} --robustFit 1 -m 200 -d {5} -t -1 --expectSignal {6}'.format(param, POI, param, rMin, rMax, ws, expSig)
+  os.system('combine -M MultiDimFit -n _paramFit_Test_{0} --algo impact --redefineSignalPOIs {1} -P {2} --floatOtherPOIs 1 --saveInactivePOI 1 --rMin {3} --rMax {4} --robustFit 1 -m 200 -d {5} -t -1 --expectSignal {6}'.format(param, POI, param, rMin, rMax, ws, expSig)) 

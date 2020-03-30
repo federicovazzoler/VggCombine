@@ -11,7 +11,7 @@ for BOSON in ${BOSONS}; do
     for YEAR in ${YEARS}; do
       echo "--- ${BOSON} - ${CHANNEL} - ${YEAR} ---"
       ./run_NuisanceImpacts.sh ${BOSON} ${CHANNEL} ${YEAR}
-      rm *.root *.out
+      rm *.root *.out *.txt *.pdf
       echo ""
     done
   done
