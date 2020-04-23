@@ -189,29 +189,29 @@ output_file.write('\n')
 if boson == 'WGG':
   if channel == 'ch_ele':
     xsec_string = '\sigma(\PW\PGg\PGg)^\mathrm{{exp.}}_{{\Pe\PGn}} &= {0:.2f} '.format(combineXsec)
-    syststat_string = '^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
+    syststat_string = '^{+{{0:.2f}}}_{-{{1:.2f}}} \mathrm{{(syst.)}} ^{+{{2:.2f}}}_{-{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
     if year == 'Run2':
-      theo_string = '\pm 0.08 \mathrm{(theo)} '
+      theo_string = '\pm 0.09 \mathrm{(theo)} '
     else:
       theo_string = ''
   elif channel == 'ch_muo':
     xsec_string = '\sigma(\PW\PGg\PGg)^\mathrm{{exp.}}_{{\PGm\PGn}} &= {0:.2f} '.format(combineXsec)
-    syststat_string = '^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
+    syststat_string = '^{+{{0:.2f}}}_{-{{1:.2f}}} \mathrm{{(syst.)}} ^{+{{2:.2f}}}_{-{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
     if year == 'Run2':
-      theo_string = '\pm 0.08 \mathrm{(theo)} '
-    else:
+      theo_string = '\pm 0.09 \mathrm{(theo)} '
+    else
       theo_string = ''
 elif boson == 'ZGG':
   if channel == 'ch_ele':
     xsec_string = '\sigma(\PZ\PGg\PGg)^\mathrm{{exp.}}_{{\Pe\Pe}} &= {0:.2f} '.format(combineXsec)
-    syststat_string = '^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
+    syststat_string = '^{+{{0:.2f}}}_{-{{1:.2f}}} \mathrm{{(syst.)}} ^{+{{2:.2f}}}_{-{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
     if year == 'Run2':
       theo_string = '\pm 0.05 \mathrm{(theo)} '
     else:
       theo_string = ''
   elif channel == 'ch_muo':
     xsec_string = '\sigma(\PZ\PGg\PGg)^\mathrm{{exp.}}_{{\PGm\PGm}} &= {0:.2f} '.format(combineXsec)
-    syststat_string = '^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
+    syststat_string = '^{+{{0:.2f}}}_{-{{1:.2f}}} \mathrm{{(syst.)}} ^{+{{2:.2f}}}_{-{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
     if year == 'Run2':
       theo_string = '\pm 0.06 \mathrm{(theo)} '
     else:
