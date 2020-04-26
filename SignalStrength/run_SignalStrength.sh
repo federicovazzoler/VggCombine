@@ -1,5 +1,5 @@
 #!/bin/bash
-URL="https://wwwusers.ts.infn.it/~dellaric/tmp/Vgg/v14.newsel.default"
+URL="https://wwwusers.ts.infn.it/~dellaric/tmp/Vgg/v14.newgen4.default"
 
 BOSON=$1
 CHANNEL=$2
