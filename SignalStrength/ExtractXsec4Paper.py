@@ -165,9 +165,10 @@ for other in other_scans:
   lo_stat = v_lo[1]
 
 # open theo xsec
-inputXsec = open(boson + '_' + channel + '_' + year + '_theoxsec.txt').readline().strip().split('(')[1].replace(')', '')
+GenXsecAndErr = open(boson + '_' + channel + '_' + year + '_theoxsec.txt').readline().strip().split('(')[1].replace(')', '').replace(' +-', '')
 
-inputXsec = float(inputXsec) * 1000
+inputXsec = float(GenXsecAndErr.split(' ')[0]) * 1000
+inputXsecStatErr = float(GenXsecAndErr.split(' ')[1]) * 1000
 
 combineXsec = float(inputXsec) * float(mu)
 combineXsec_syst_hi = float(inputXsec) * float(hi_syst)
@@ -180,43 +181,61 @@ combineXsec_stat_lo = float(inputXsec) * float(lo_stat)
 output_file = open(boson + "_" + channel + "_" + year + "_xsec4paper" + "_" + isBlind + ".txt","w")
 
 output_file.write('Mu = {0}\n'.format(mu))
-output_file.write('Generator xsec = {0}\n'.format(inputXsec))
+output_file.write('Generator xsec = {0} +- {1}\n'.format(inputXsec, inputXsecStatErr))
 output_file.write('Combine xsec = {0:.2f} +{1:.2f} -{2:.2f} (Syst.) +{3:.2f} -{4:.2f} (Stat.)\n'.format(abs(combineXsec), abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo)))
 output_file.write('\n')
 output_file.write('Latex 4 paper : \n')
 output_file.write('\n')
 
+pdf_unc = 0.
+theo_unc = 0.
+
 if boson == 'WGG':
   if channel == 'ch_ele':
-    xsec_string = '\sigma(\PW\PGg\PGg)^\mathrm{{exp.}}_{{\Pe\PGn}} &= {0:.2f} '.format(combineXsec)
-    syststat_string = '^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
+    xsec_string = '\sigma(\PW\PGg\PGg)^\mathrm{{exp.}}_{{\Pe\PGn}} &= {0:.2f}'.format(combineXsec)
     if year == 'Run2':
-      theo_string = '\pm 0.09 \mathrm{(theo)} '
+      pdf_unc = 0.09
+      theo_string = '\pm {0:.2f} \mathrm{(pdf + scale)}'.format(abs(pdf_unc))
     else:
-      theo_string = ''
+      pdf_unc = 0.
+      theo_string = '\pm {0:.2f} \mathrm{(pdf + scale)}'.format(abs(pdf_unc))
   elif channel == 'ch_muo':
-    xsec_string = '\sigma(\PW\PGg\PGg)^\mathrm{{exp.}}_{{\PGm\PGn}} &= {0:.2f} '.format(combineXsec)
-    syststat_string = '^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
+    xsec_string = '\sigma(\PW\PGg\PGg)^\mathrm{{exp.}}_{{\PGm\PGn}} &= {0:.2f}'.format(combineXsec)
     if year == 'Run2':
-      theo_string = '\pm 0.09 \mathrm{(theo)} '
+      pdf_unc = 0.09
+      theo_string = '\pm {0:.2f} \mathrm{(pdf + scale)}'.format(abs(pdf_unc))
     else:
-      theo_string = ''
+      pdf_unc = 0.
+      theo_string = '\pm {0:.2f} \mathrm{(pdf + scale)}'.format(abs(pdf_unc))
 elif boson == 'ZGG':
   if channel == 'ch_ele':
     xsec_string = '\sigma(\PZ\PGg\PGg)^\mathrm{{exp.}}_{{\Pe\Pe}} &= {0:.2f} '.format(combineXsec)
-    syststat_string = '^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
     if year == 'Run2':
-      theo_string = '\pm 0.05 \mathrm{(theo)} '
+      pdf_unc = 0.05
+      theo_string = '\pm {0:.2f} \mathrm{(pdf + scale)}'.format(abs(pdf_unc))
     else:
-      theo_string = ''
+      pdf_unc = 0.
+      theo_string = '\pm {0:.2f} \mathrm{(pdf + scale)}'.format(abs(pdf_unc))
   elif channel == 'ch_muo':
     xsec_string = '\sigma(\PZ\PGg\PGg)^\mathrm{{exp.}}_{{\PGm\PGm}} &= {0:.2f} '.format(combineXsec)
-    syststat_string = '^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
     if year == 'Run2':
-      theo_string = '\pm 0.06 \mathrm{(theo)} '
+      pdf_unc = 0.06
+      theo_string = '\pm {0:.2f} \mathrm{(pdf + scale)}'.format(abs(pdf_unc))
     else:
-      theo_string = ''
+      pdf_unc = 0.
+      theo_string = '\pm {0:.2f} \mathrm{(pdf + scale)}'.format(abs(pdf_unc))
 
-output_file.write(xsec_string + syststat_string + theo_string + '\, \mathrm{{fb}} \\' + '\\')
+#  syststat_string = ' ^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
+  syststat_string  = '^{{+'
+  syststat_string += '{0:.2f}'.format(abs(combineXsec_syst_hi))
+  syststat_string += '}}_{{-'
+  syststat_string += '{0:.2f}'.format(abs(combineXsec_syst_lo))
+  syststat_string += '}} \mathrm{{(syst.)}} ^{{+'
+  syststat_string += '{0:.2f}'.format(abs(combineXsec_stat_hi))
+  syststat_string += '}}_{{-'
+  syststat_string += '{0:.2f}'.format(abs(combineXsec_stat_lo))
+  syststat_string += '}} \mathrm{{(stat.)}}'
+
+output_file.write(xsec_string + ' ' + syststat_string + ' ' + theo_string + ' \, \mathrm{{fb}} \\' + '\\')
 
 output_file.close()
