@@ -1,7 +1,19 @@
 import ROOT
 
+def maxValueYaxis(h_systUp, h_systDown):
+  maxValueUp = 0
+  maxValueDown = 0
+  
+  for i in range(1, h_systUp.GetNbinsX()):
+    if h_systUp.GetBinContent(i) > maxValueUp: maxValueUp = h_systUp.GetBinContent(i)
+    if h_systDown.GetBinContent(i) > maxValueDown: maxValueDown = h_systDown.GetBinContent(i)
+  
+  if maxValueUp > maxValueDown: return maxValueUp
+  else: return maxValueDown
+
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
+ROOT.gStyle.SetOptStat(0)
 
 import sys
 boson = sys.argv[1]
@@ -61,7 +73,19 @@ h_diboson_systUp.Draw()
 h_diboson.Draw('SAME')
 h_diboson_err.Draw('E2SAME')
 h_diboson_systDown.Draw('SAME')
-h_diboson_systUp.SetMaximum(h_diboson_systUp.GetMaximum() * 1.2)
+MaxValue_h_diboson = maxValueYaxis(h_diboson_systUp, h_diboson_systDown)
+h_diboson_systUp.SetMaximum(MaxValue_h_diboson * 1.2)
+
+leg1 = ROOT.TLegend(0.65, 0.640, 0.91, 0.88);
+leg1.SetBorderSize(0);
+leg1.SetEntrySeparation(0.01);
+leg1.SetFillColor(0);
+leg1.SetFillStyle(0);
+leg1.AddEntry(h_diboson_systDown, "Down", "f");
+leg1.AddEntry(h_diboson_systUp, "Up", "f");
+
+leg1.Draw()
+c_all.Update()
 
 c_all.cd(2)
 h_bkg_jetpho_misid_systUp.SetLineColor(ROOT.kRed)
@@ -70,7 +94,19 @@ h_bkg_jetpho_misid_systUp.Draw()
 h_bkg_jetpho_misid.Draw('SAME')
 h_bkg_jetpho_misid_err.Draw('E2SAME')
 h_bkg_jetpho_misid_systDown.Draw('SAME')
-h_bkg_jetpho_misid_systUp.SetMaximum(h_bkg_jetpho_misid_systUp.GetMaximum() * 1.2)
+MaxValue_h_bkg_jetpho_misid = maxValueYaxis(h_bkg_jetpho_misid_systUp, h_bkg_jetpho_misid_systDown)
+h_bkg_jetpho_misid_systUp.SetMaximum(MaxValue_h_bkg_jetpho_misid * 1.2)
+
+leg2 = ROOT.TLegend(0.65, 0.640, 0.91, 0.88);
+leg2.SetBorderSize(0);
+leg2.SetEntrySeparation(0.01);
+leg2.SetFillColor(0);
+leg2.SetFillStyle(0);
+leg2.AddEntry(h_bkg_jetpho_misid_systDown, "Down", "f");
+leg2.AddEntry(h_bkg_jetpho_misid_systUp, "Up", "f");
+
+leg2.Draw()
+c_all.Update()
 
 c_all.cd(3)
 h_bkg_irred_systUp.SetLineColor(ROOT.kRed)
@@ -79,7 +115,19 @@ h_bkg_irred_systUp.Draw()
 h_bkg_irred.Draw('SAME')
 h_bkg_irred_err.Draw('E2SAME')
 h_bkg_irred_systDown.Draw('SAME')
-h_bkg_irred_systUp.SetMaximum(h_bkg_irred_systUp.GetMaximum() * 1.2)
+MaxValue_h_bkg_irred = maxValueYaxis(h_bkg_irred_systUp, h_bkg_irred_systDown)
+h_bkg_irred_systUp.SetMaximum(MaxValue_h_bkg_irred * 1.2)
+
+leg3 = ROOT.TLegend(0.65, 0.640, 0.91, 0.88);
+leg3.SetBorderSize(0);
+leg3.SetEntrySeparation(0.01);
+leg3.SetFillColor(0);
+leg3.SetFillStyle(0);
+leg3.AddEntry(h_bkg_irred_systDown, "Down", "f");
+leg3.AddEntry(h_bkg_irred_systUp, "Up", "f");
+
+leg3.Draw()
+c_all.Update()
 
 if boson == 'WGG':
   c_all.cd(4)
@@ -89,7 +137,18 @@ if boson == 'WGG':
   h_bkg_egmisid.Draw('SAME')
   h_bkg_egmisid_err.Draw('E2SAME')
   h_bkg_egmisid_systDown.Draw('SAME')
-  h_bkg_egmisid_systUp.SetMaximum(h_bkg_egmisid_systUp.GetMaximum() * 1.2)
+  MaxValue_h_bkg_egmisid = maxValueYaxis(h_bkg_egmisid_systUp, h_bkg_egmisid_systDown)
+  h_bkg_egmisid_systUp.SetMaximum(MaxValue_h_bkg_egmisid * 1.2)
 
+  leg4 = ROOT.TLegend(0.65, 0.640, 0.91, 0.88);
+  leg4.SetBorderSize(0);
+  leg4.SetEntrySeparation(0.01);
+  leg4.SetFillColor(0);
+  leg4.SetFillStyle(0);
+  leg4.AddEntry(h_bkg_egmisid_systDown, "Down", "f");
+  leg4.AddEntry(h_bkg_egmisid_systUp, "Up", "f");
+  
+  leg4.Draw()
+  c_all.Update()
 
 c_all.SaveAs('html/combine_plots/syst_shape_plot/' + boson + '/' + channel + '/' + year + '/' + boson + '_' + channel + '_' + syst + '.pdf') 
