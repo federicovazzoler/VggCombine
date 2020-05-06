@@ -1,5 +1,5 @@
 #!/bin/bash
-URL_xsec="https://wwwusers.ts.infn.it/~dellaric/tmp/Vgg/v14.newgen4.default"
+URL_xsec="https://wwwusers.ts.infn.it/~dellaric/tmp/Vgg/v14.newgen5.default"
 URL_pdf_scale="https://wwwusers.ts.infn.it/~gsorrent/FedericoVGG/25APR"
 
 BOSON=$1
