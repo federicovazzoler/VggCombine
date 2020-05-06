@@ -33,8 +33,8 @@ for BOSON in ${BOSONS}; do
       for FLAG in ${FLAGS}; do
         echo "--- ${FLAG}"
         if [[ "${FLAG}" == "reference" ]]; then
-          python number_of_events.py ${BOSON} ${CHANNEL} ${YEAR}
-          mv ${BOSON}_${CHANNEL}_${YEAR}_events_table.txt html/combine_plots/syst_shape_plot/${BOSON}/${CHANNEL}/${YEAR}
+          python number_of_events.py ${YEAR}
+          mv events_table_${YEAR}.txt html/combine_plots/syst_shape_plot/
         else
           python plotSyst.py ${BOSON} ${CHANNEL} ${YEAR} ${FLAG}
         fi
