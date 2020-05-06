@@ -1,3 +1,4 @@
+import os
 import ROOT
 
 def maxValueYaxis(h_systUp, h_systDown):
@@ -152,3 +153,54 @@ if boson == 'WGG':
   c_all.Update()
 
 c_all.SaveAs('html/combine_plots/syst_shape_plot/' + boson + '/' + channel + '/' + year + '/' + boson + '_' + channel + '_' + syst + '.pdf') 
+
+
+# pre-fit unc
+
+sum_nevt = 0
+
+nevt_diboson = h_diboson.Integral(0, h_diboson.GetNbinsX()+1)
+sum_nevt += nevt_diboson
+nevt_bkg_jetpho_misid = h_bkg_jetpho_misid.Integral(0, h_bkg_jetpho_misid.GetNbinsX()+1)
+sum_nevt += nevt_bkg_jetpho_misid
+nevt_bkg_irred = h_bkg_irred.Integral(0, h_bkg_irred.GetNbinsX()+1)
+sum_nevt += nevt_bkg_irred
+if boson == 'WGG': 
+  nevt_bkg_egmisid = h_bkg_egmisid.Integral(0, h_bkg_egmisid.GetNbinsX()+1)
+  sum_nevt += nevt_bkg_egmisid
+
+sum_nevt_systUp = 0
+
+nevt_diboson_systUp = h_diboson_systUp.Integral(0, h_diboson_systUp.GetNbinsX()+1)
+sum_nevt_systUp += nevt_diboson_systUp 
+nevt_bkg_jetpho_misid_systUp = h_bkg_jetpho_misid_systUp.Integral(0, h_bkg_jetpho_misid_systUp.GetNbinsX()+1)
+sum_nevt_systUp += nevt_bkg_jetpho_misid_systUp 
+nevt_bkg_irred_systUp = h_bkg_irred_systUp.Integral(0, h_bkg_irred.GetNbinsX()+1)
+sum_nevt_systUp += nevt_bkg_irred_systUp 
+if boson == 'WGG': 
+  nevt_bkg_egmisid_systUp = h_bkg_egmisid_systUp.Integral(0, h_bkg_egmisid_systUp.GetNbinsX()+1)
+  sum_nevt_systUp += nevt_bkg_egmisid_systUp 
+
+sum_nevt_systDown = 0
+
+nevt_diboson_systDown = h_diboson_systDown.Integral(0, h_diboson_systDown.GetNbinsX()+1)
+sum_nevt_systDown += nevt_diboson_systDown 
+nevt_bkg_jetpho_misid_systDown = h_bkg_jetpho_misid_systDown.Integral(0, h_bkg_jetpho_misid_systDown.GetNbinsX()+1)
+sum_nevt_systDown += nevt_bkg_jetpho_misid_systDown 
+nevt_bkg_irred_systDown = h_bkg_irred_systDown.Integral(0, h_bkg_irred.GetNbinsX()+1)
+sum_nevt_systDown += nevt_bkg_irred_systDown 
+if boson == 'WGG': 
+  nevt_bkg_egmisid_systDown = h_bkg_egmisid_systDown.Integral(0, h_bkg_egmisid_systDown.GetNbinsX()+1)
+  sum_nevt_systDown += nevt_bkg_egmisid_systDown 
+
+output_file = open('html/combine_plots/syst_shape_plot/' + boson + '/' + channel + '/' + year + '/' + boson + '_' + channel + '_' + syst + '.txt','w')
+
+output_file.write('Sum MC reference: {0}\n'.format(sum_nevt))
+output_file.write('Sum MC SystUp   : {0}\n'.format(sum_nevt_systUp))
+output_file.write('Sum MC SystDown : {0}\n'.format(sum_nevt_systDown))
+output_file.write('Effect Up       : {0:.2f} %\n'.format((sum_nevt_systUp/sum_nevt - 1) * 100))
+output_file.write('Effect Down     : {0:.2f} %\n'.format((sum_nevt_systDown/sum_nevt - 1) * 100))
+if syst == 'jet_misid':
+  output_file.write('Effect stat     : {0:.2f} %\n'.format(float((sum_nevt + h_bkg_jetpho_misid.GetBinError(0) + h_bkg_jetpho_misid.GetBinError(1) + h_bkg_jetpho_misid.GetBinError(2) + h_bkg_jetpho_misid.GetBinError(3) + h_bkg_jetpho_misid.GetBinError(4))/sum_nevt)))
+  
+#output_file.write('Effect avg      : {0:.2f} %%\n'.format(abs((sum_nevt_systUp/sum_nevt - 1) + (sum_nevt_systDown/sum_nevt - 1)) * 100))
