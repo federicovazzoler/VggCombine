@@ -25,17 +25,19 @@ FLAGS=$FLAGS" l1prefiring"
 FLAGS=$FLAGS" eg_misid"
 FLAGS=$FLAGS" jet_misid"
 
-for BOSON in ${BOSONS}; do
-  for CHANNEL in ${CHANNELS}; do
-    for YEAR in ${YEARS}; do
+for YEAR in ${YEARS}; do
+  python number_of_events.py ${YEAR}
+  mv events_table_${YEAR}.txt html/combine_plots/syst_shape_plot/
+  mv events_table_${YEAR}_LATEX.txt html/combine_plots/syst_shape_plot/
+  python preFit_syst_table.py ${YEAR} "${FLAGS}"
+  mv preFit_syst_table_${YEAR}.txt html/combine_plots/syst_shape_plot/
+  for BOSON in ${BOSONS}; do
+    for CHANNEL in ${CHANNELS}; do
       echo "--- ${BOSON} - ${CHANNEL} - ${YEAR} ---"
       mkdir -p html/combine_plots/syst_shape_plot/${BOSON}/${CHANNEL}/${YEAR}
       for FLAG in ${FLAGS}; do
-        echo "--- ${FLAG}"
-        if [[ "${FLAG}" == "reference" ]]; then
-          python number_of_events.py ${YEAR}
-          mv events_table_${YEAR}.txt html/combine_plots/syst_shape_plot/
-        else
+        if [[ "${FLAG}" != "reference" ]]; then
+          echo "--- ${FLAG}"
           python plotSyst.py ${BOSON} ${CHANNEL} ${YEAR} ${FLAG}
         fi
       done
