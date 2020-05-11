@@ -202,14 +202,14 @@ elif boson == 'ZGG':
 
 #  syststat_string = ' ^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
 syststat_string  = '^{{+'
-syststat_string += '{0:.2f}'.format(abs(combineXsec_syst_hi))
-syststat_string += '}}_{{-'
-syststat_string += '{0:.2f}'.format(abs(combineXsec_syst_lo))
-syststat_string += '}} \mathrm{{(syst.)}} ^{{+'
 syststat_string += '{0:.2f}'.format(abs(combineXsec_stat_hi))
 syststat_string += '}}_{{-'
 syststat_string += '{0:.2f}'.format(abs(combineXsec_stat_lo))
-syststat_string += '}} \mathrm{{(stat.)}}'
+syststat_string += '}} \mathrm{{(stat.)}} ^{{+'
+syststat_string += '{0:.2f}'.format(abs(combineXsec_syst_hi))
+syststat_string += '}}_{{-'
+syststat_string += '{0:.2f}'.format(abs(combineXsec_syst_lo))
+syststat_string += '}} \mathrm{{(syst.)}}'
 
 pdf_scale_string = '\pm {0:.2f} \mathrm{{(pdf + scale)}}'.format(abs(pdf_scale))
 
@@ -221,7 +221,7 @@ output_file.write('\n')
 output_file.write('Generator xsec               = {0} +- {1}\n'.format(inputXsec, inputXsecStatErr))
 output_file.write('pdf + scale uncertainty      = {0}\n'.format(pdf_scale))
 output_file.write('Mu                           = {0:.2f} +{1:.2f} -{2:.2f} (Syst.) +{3:.2f} -{4:.2f} (Stat.)\n'.format(abs(mu), abs(hi_syst), abs(lo_syst), abs(hi_stat), abs(lo_stat)))
-output_file.write('Combine xsec                 = {0:.2f} +{1:.2f} -{2:.2f} (Syst.) +{3:.2f} -{4:.2f} (Stat.) + {5:.2f} (pdf + scale)\n'.format(abs(combineXsec), abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo), abs(pdf_scale)))
+output_file.write('Combine xsec                 = {0:.2f} +{1:.2f} -{2:.2f} (Stat.) +{3:.2f} -{4:.2f} (Syst.) + {5:.2f} (pdf + scale)\n'.format(abs(combineXsec), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo), abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(pdf_scale)))
 output_file.write('\n')
 output_file.write('Latex 4 paper                : ' + xsec_string + ' ' + syststat_string + ' ' + pdf_scale_string + ' \, \mathrm{{fb}} \\' + '\\ \n')
 output_file.close()
