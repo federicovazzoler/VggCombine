@@ -1,3 +1,6 @@
+# To rework the dictionary logic
+# following https://stackoverflow.com/questions/27118687/updating-nested-dictionaries-when-data-has-existing-key
+#import collections
 import sys
 import os
 import math
@@ -12,6 +15,7 @@ def fillSystForBosonChannel(syst, boson, channel, year, syst_dic):
   nevt_bkg_egmisid      = [ROOT.Double(0), ROOT.Double(0), ROOT.Double(0), ROOT.Double(0)]
   nevt_bkg_irred        = [ROOT.Double(0), ROOT.Double(0), ROOT.Double(0), ROOT.Double(0)]
   nevt_sum_mc_tot       = [ROOT.Double(0), ROOT.Double(0), ROOT.Double(0)]
+  nevt_sum_mc_bkg       = [ROOT.Double(0), ROOT.Double(0), ROOT.Double(0)]
 
   nevt_diboson[0] = input_file.Get('diboson').IntegralAndError(0, input_file.Get('diboson').GetNbinsX()+1, nevt_diboson[1])
   nevt_diboson[2] = input_file.Get('diboson_' + syst + 'Up').Integral(0, input_file.Get('diboson_' + syst + 'Up').GetNbinsX())
@@ -20,7 +24,7 @@ def fillSystForBosonChannel(syst, boson, channel, year, syst_dic):
   nevt_bkg_jetpho_misid[0] = input_file.Get('bkg_jetpho_misid').IntegralAndError(0, input_file.Get('bkg_jetpho_misid').GetNbinsX()+1, nevt_bkg_jetpho_misid[1])
   nevt_bkg_jetpho_misid[2] = input_file.Get('bkg_jetpho_misid_' + syst + 'Up').Integral(0, input_file.Get('bkg_jetpho_misid_' + syst + 'Up').GetNbinsX())
   nevt_bkg_jetpho_misid[3] = input_file.Get('bkg_jetpho_misid_' + syst + 'Down').Integral(0, input_file.Get('bkg_jetpho_misid_' + syst + 'Down').GetNbinsX())
- 
+
   if boson == 'WGG':
     nevt_bkg_egmisid[0] = input_file.Get('bkg_egmisid').IntegralAndError(0, input_file.Get('bkg_egmisid').GetNbinsX()+1, nevt_bkg_egmisid[1])
     nevt_bkg_egmisid[2] = input_file.Get('bkg_egmisid_' + syst + 'Up').Integral(0, input_file.Get('bkg_egmisid_' + syst + 'Up').GetNbinsX())
@@ -40,27 +44,49 @@ def fillSystForBosonChannel(syst, boson, channel, year, syst_dic):
   nevt_sum_mc_tot[1] = (nevt_diboson[0] + nevt_bkg_jetpho_misid[0] + nevt_bkg_egmisid[0] + nevt_bkg_irred[0]) - nevt_sum_mc_tot[1]
   nevt_sum_mc_tot[1] = nevt_sum_mc_tot[1] / (nevt_diboson[0] + nevt_bkg_jetpho_misid[0] + nevt_bkg_egmisid[0] + nevt_bkg_irred[0])
 
-  #stat 
+  #stat
   nevt_sum_mc_tot[2] = nevt_diboson[1] + nevt_bkg_jetpho_misid[1] + nevt_bkg_egmisid[1] + nevt_bkg_irred[1]
   nevt_sum_mc_tot[2] = nevt_sum_mc_tot[2] / (nevt_diboson[0] + nevt_bkg_jetpho_misid[0] + nevt_bkg_egmisid[0] + nevt_bkg_irred[0])
 
+  # systUp
+  nevt_sum_mc_bkg[0] = nevt_bkg_jetpho_misid[2] + nevt_bkg_egmisid[2] + nevt_bkg_irred[2]
+  nevt_sum_mc_bkg[0] = nevt_sum_mc_bkg[0] - (nevt_bkg_jetpho_misid[0] + nevt_bkg_egmisid[0] + nevt_bkg_irred[0])
+  nevt_sum_mc_bkg[0] = nevt_sum_mc_bkg[0] / (nevt_bkg_jetpho_misid[0] + nevt_bkg_egmisid[0] + nevt_bkg_irred[0])
+
+  #systDown
+  nevt_sum_mc_bkg[1] = nevt_bkg_jetpho_misid[3] + nevt_bkg_egmisid[3] + nevt_bkg_irred[3]
+  nevt_sum_mc_bkg[1] = (nevt_bkg_jetpho_misid[0] + nevt_bkg_egmisid[0] + nevt_bkg_irred[0]) - nevt_sum_mc_bkg[1]
+  nevt_sum_mc_bkg[1] = nevt_sum_mc_bkg[1] / (nevt_bkg_jetpho_misid[0] + nevt_bkg_egmisid[0] + nevt_bkg_irred[0])
+
+  #stat
+  nevt_sum_mc_bkg[2] = nevt_bkg_jetpho_misid[1] + nevt_bkg_egmisid[1] + nevt_bkg_irred[1]
+  nevt_sum_mc_bkg[2] = nevt_sum_mc_bkg[2] / (nevt_bkg_jetpho_misid[0] + nevt_bkg_egmisid[0] + nevt_bkg_irred[0])
+
   single_syst_dic = { syst : {
                         'sum_mc_tot' : {
-                          'systUp' : nevt_sum_mc_tot[0], 
-                          'systDown' : nevt_sum_mc_tot[1], 
+                          'systUp' : nevt_sum_mc_tot[0],
+                          'systDown' : nevt_sum_mc_tot[1],
                           'systAvg' : (abs(nevt_sum_mc_tot[0]) + abs(nevt_sum_mc_tot[1])) / 2.,
-                          'stat' : nevt_sum_mc_tot[2], 
-                        } 
+                          'stat' : nevt_sum_mc_tot[2],
+                        },
+                        'sum_mc_bkg' : {
+                          'systUp' : nevt_sum_mc_bkg[0],
+                          'systDown' : nevt_sum_mc_bkg[1],
+                          'systAvg' : (abs(nevt_sum_mc_bkg[0]) + abs(nevt_sum_mc_bkg[1])) / 2.,
+                          'stat' : nevt_sum_mc_bkg[2],
+                        }
                       }
-                    }  
+                    }
 
   return syst_dic.update(single_syst_dic)
 
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
-year = sys.argv[1]
-syst_list = sys.argv[2].split(' ')
+folder = sys.argv[1]
+folder += '/'
+year = sys.argv[2]
+syst_list = sys.argv[3].split(' ')
 syst_list.remove('reference')
 syst_list.remove('')
 
@@ -77,7 +103,7 @@ for syst in syst_list:
   fillSystForBosonChannel(syst, 'ZGG', 'ch_ele', year, syst_dic_ZGG_ch_ele)
   fillSystForBosonChannel(syst, 'ZGG', 'ch_muo', year, syst_dic_ZGG_ch_muo)
 
-output_file  = open('preFit_syst_table_' + year + '.txt','w')
+output_file  = open(folder + 'preFit_syst_table_' + year + '.txt','w')
 
 table_header = [' Syst', '| WGG ele (%) ', '| WGG muo (%) ', '| ZGG ele (%) ', '| ZGG muo (%) ']
 table_row = ['' for i in range(len(syst_list) + 2)]
@@ -90,23 +116,23 @@ for syst in syst_list:
   table_row[i] += ' ' + syst
   for sp in range(cell_w_syst - len(table_row[i])):
     table_row[i] += ' '
-      
-  table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_ele.get(syst).get('sum_mc_tot').get('systAvg') * 100)
+
+  table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_ele.get(syst).get('sum_mc_bkg').get('systAvg') * 100)
   for sp in range(cell_w - 6):
     table_row[i] += ' '
 
-  table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_muo.get(syst).get('sum_mc_tot').get('systAvg') * 100)
+  table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_muo.get(syst).get('sum_mc_bkg').get('systAvg') * 100)
   for sp in range(cell_w - 6):
     table_row[i] += ' '
 
-  table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_ele.get(syst).get('sum_mc_tot').get('systAvg') * 100)
+  table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_ele.get(syst).get('sum_mc_bkg').get('systAvg') * 100)
   for sp in range(cell_w - 6):
     table_row[i] += ' '
 
-  table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_muo.get(syst).get('sum_mc_tot').get('systAvg') * 100)
+  table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_muo.get(syst).get('sum_mc_bkg').get('systAvg') * 100)
   for sp in range(cell_w - 6):
     table_row[i] += ' '
- 
+
   i += 1
 
 lumi_list = [0.025, 0.023, 0.025, 0.018]
@@ -145,19 +171,19 @@ table_row[i] += ' mc stat'
 for sp in range(cell_w_syst - len(table_row[i])):
   table_row[i] += ' '
 
-table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_ele.get(syst).get('sum_mc_tot').get('stat') * 100)
+table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_ele.get(syst).get('sum_mc_bkg').get('stat') * 100)
 for sp in range(cell_w - 6):
   table_row[i] += ' '
 
-table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_muo.get(syst).get('sum_mc_tot').get('stat') * 100)
+table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_muo.get(syst).get('sum_mc_bkg').get('stat') * 100)
 for sp in range(cell_w - 6):
   table_row[i] += ' '
 
-table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_ele.get(syst).get('sum_mc_tot').get('stat') * 100)
+table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_ele.get(syst).get('sum_mc_bkg').get('stat') * 100)
 for sp in range(cell_w - 6):
   table_row[i] += ' '
 
-table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_muo.get(syst).get('sum_mc_tot').get('stat') * 100)
+table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_muo.get(syst).get('sum_mc_bkg').get('stat') * 100)
 for sp in range(cell_w - 6):
   table_row[i] += ' '
 
