@@ -51,4 +51,4 @@ for param in paramList:
   print 'Doing param : ' + param
   print 'Launching combine as :'
   print 'combine -M MultiDimFit -n _paramFit_Test_{0} --algo impact --redefineSignalPOIs {1} -P {2} --floatOtherPOIs 1 --saveInactivePOI 1 --rMin {3} --rMax {4} --robustFit 1 -m 200 -d {5} -t -1 --expectSignal {6}'.format(param, POI, param, rMin, rMax, ws, expSig)
-  os.system('combine -M MultiDimFit -n _paramFit_Test_{0} --algo impact --redefineSignalPOIs {1} -P {2} --floatOtherPOIs 1 --saveInactivePOI 1 --rMin {3} --rMax {4} --robustFit 1 -m 200 -d {5} -t -1 --expectSignal {6}'.format(param, POI, param, rMin, rMax, ws, expSig)) 
+  os.system('combine -M MultiDimFit -n _paramFit_Test_{0} --algo impact --redefineSignalPOIs {1} -P {2} --floatOtherPOIs 1 --saveInactivePOI 1 --rMin {3} --rMax {4} --robustFit 1 -m 200 -d {5} -t -1 --expectSignal {6}'.format(param, POI, param, rMin, rMax, ws, expSig))

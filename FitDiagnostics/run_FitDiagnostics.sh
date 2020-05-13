@@ -1,23 +1,22 @@
 #!/bin/bash
 
-BOSON=$1
-CHANNEL=$2
-YEAR=$3
-
-FOLDER="../html/combine_plots/likelihood_scan/FitDiagnostic/${BOSON}_${CHANNEL}_${YEAR}"
+FOLDER=$1
+BOSON=$2
+CHANNEL=$3
+YEAR=$4
+FOLDER=$FOLDER/${BOSON}_${CHANNEL}_${YEAR}
 mkdir -p ${FOLDER}
 rm ${FOLDER}/*
 
 #clean
-rm ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
-rm ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind*
-rm ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic*
-rm higgsCombineTest.FitDiagnostics*
-rm combine_logger.out
+FILETOREMOVE=$(find ./ -name "*.root" -o -name "*.out")
+if [[ "${FILETOREMOVE}" != "" ]]; then
+  rm -v ${FILETOREMOVE}
+fi
 
 #build workspace
 text2workspace.py ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt  -o ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
-cp ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt ${FOLDER} 
+cp ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt ${FOLDER}
 
 echo ""
 echo "run fit diagnostic blinded (fixed signal strenght = 0)"
@@ -30,11 +29,13 @@ python diffNuisances.py -a ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0.r
 
 python PlotDiffNuisances.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0_plots ${FOLDER}
 
-#plot prefit
-python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0 ${CHANNEL} prefit ${FOLDER} blind_mu0
+if [[ "${CHANNEL}" != "ch_lep" ]]; then
+  #plot prefit
+  python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0 ${CHANNEL} prefit ${FOLDER} blind_mu0
 
-#plot postfit
-python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0 ${CHANNEL} postfit ${FOLDER} blind_mu0
+  #plot postfit
+  python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu0 ${CHANNEL} postfit ${FOLDER} blind_mu0
+fi
 
 echo ""
 echo "run fit diagnostic blinded (fixed signal strenght = 1)"
@@ -47,11 +48,13 @@ python diffNuisances.py -a ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1.r
 
 python PlotDiffNuisances.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1_plots ${FOLDER}
 
-#plot prefit
-python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1 ${CHANNEL} prefit ${FOLDER} blind_mu1
+if [[ "${CHANNEL}" != "ch_lep" ]]; then
+  #plot prefit
+  python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1 ${CHANNEL} prefit ${FOLDER} blind_mu1
 
-#plot postfit
-python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1 ${CHANNEL} postfit ${FOLDER} blind_mu1
+  #plot postfit
+  python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_blind_mu1 ${CHANNEL} postfit ${FOLDER} blind_mu1
+fi
 
 echo ""
 echo "run fit diagnostic unblinded"
@@ -64,8 +67,10 @@ python diffNuisances.py -a ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root -g ${B
 
 python PlotDiffNuisances.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_plots ${FOLDER}
 
-#plot prefit
-python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic ${CHANNEL} prefit ${FOLDER}
+if [[ "${CHANNEL}" != "ch_lep" ]]; then
+  #plot prefit
+  python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic ${CHANNEL} prefit ${FOLDER}
 
-#plot postfit
-python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic ${CHANNEL} postfit ${FOLDER}
+  #plot postfit
+  python FitPlot.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic ${CHANNEL} postfit ${FOLDER}
+fi

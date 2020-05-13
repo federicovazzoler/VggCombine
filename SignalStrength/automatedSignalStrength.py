@@ -37,7 +37,7 @@ isBlind = sys.argv[5]
 POI = 'r'
 
 # is blind or not?
-if isBlind == 'blind': 
+if isBlind == 'blind':
   blindString = ' -t -1 --expectSignal 1'
 elif isBlind == 'unblind':
   blindString = ''

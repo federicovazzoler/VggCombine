@@ -17,10 +17,12 @@ ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.gStyle.SetOptStat(0)
 
 import sys
-boson = sys.argv[1]
-channel = sys.argv[2]
-year = sys.argv[3]
-syst = sys.argv[4]
+folder = sys.argv[1]
+folder += '/'
+boson = sys.argv[2]
+channel = sys.argv[3]
+year = sys.argv[4]
+syst = sys.argv[5]
 
 fin = ROOT.TFile('cards/' + boson + '_' + channel + '_' + year + '.root')
 
@@ -152,7 +154,7 @@ if boson == 'WGG':
   leg4.Draw()
   c_all.Update()
 
-c_all.SaveAs('html/combine_plots/syst_shape_plot/' + boson + '/' + channel + '/' + year + '/' + boson + '_' + channel + '_' + syst + '.pdf') 
+c_all.SaveAs(folder + boson + '/' + channel + '/' + year + '/' + boson + '_' + channel + '_' + syst + '.pdf') 
 
 
 # pre-fit unc
@@ -193,7 +195,7 @@ if boson == 'WGG':
   nevt_bkg_egmisid_systDown = h_bkg_egmisid_systDown.Integral(0, h_bkg_egmisid_systDown.GetNbinsX()+1)
   sum_nevt_systDown += nevt_bkg_egmisid_systDown 
 
-output_file = open('html/combine_plots/syst_shape_plot/' + boson + '/' + channel + '/' + year + '/' + boson + '_' + channel + '_' + syst + '.txt','w')
+output_file = open(folder + boson + '/' + channel + '/' + year + '/' + boson + '_' + channel + '_' + syst + '.txt','w')
 
 output_file.write('Sum MC reference: {0}\n'.format(sum_nevt))
 output_file.write('Sum MC SystUp   : {0}\n'.format(sum_nevt_systUp))

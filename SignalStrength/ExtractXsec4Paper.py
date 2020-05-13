@@ -148,7 +148,7 @@ for other in other_scans:
   v_lo.append(other['val'][2])
   assert(len(v_hi) == len(breakdown))
   mu = val_nom[0]
-    
+
   #syst
   i = 0
   if (abs(v_hi[1]) > abs(v_hi[0])):

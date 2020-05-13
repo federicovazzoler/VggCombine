@@ -6,7 +6,9 @@ import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
-year = sys.argv[1]
+folder = sys.argv[1]
+folder += '/'
+year = sys.argv[2]
 
 input_file = ['', '', '', '']
 
@@ -15,7 +17,7 @@ input_file[1] = ROOT.TFile('cards/WGG_ch_muo_' + year + '.root')
 input_file[2] = ROOT.TFile('cards/ZGG_ch_ele_' + year + '.root')
 input_file[3] = ROOT.TFile('cards/ZGG_ch_muo_' + year + '.root')
 
-output_file  = open('events_table_' + year + '.txt','w')
+output_file  = open(folder + 'events_table_' + year + '.txt','w')
 
 # 0-1 wgg ele (evt-stat err), 2-3 wgg muon, 4-5 zgg ele, 6-7 zgg muo
 nevt_data_obs         = [[ROOT.Double(0), ROOT.Double(0)], [ROOT.Double(0), ROOT.Double(0)], [ROOT.Double(0), ROOT.Double(0)], [ROOT.Double(0), ROOT.Double(0)]]
@@ -134,7 +136,7 @@ output_file.write('|----------------|----------------|----------------|---------
 
 output_file.close()
 
-output_file_tex = open('events_table_' + year + '_LATEX.txt','w')
+output_file_tex = open(folder + 'events_table_' + year + '_LATEX.txt','w')
 
 output_file_tex.write('\\begin{table}\n')
 output_file_tex.write('\centering\n')

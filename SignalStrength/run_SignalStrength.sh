@@ -1,14 +1,20 @@
 #!/bin/bash
-URL_xsec="https://wwwusers.ts.infn.it/~dellaric/tmp/Vgg/v14.newgen5.default"
-URL_pdf_scale="https://wwwusers.ts.infn.it/~gsorrent/FedericoVGG/25APR"
 
-BOSON=$1
-CHANNEL=$2
-YEAR=$3
-
-FOLDER="../html/combine_plots/likelihood_scan/SignalStrength/${BOSON}_${CHANNEL}_${YEAR}"
+FOLDER=$1
+BOSON=$2
+CHANNEL=$3
+YEAR=$4
+FOLDER=${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}
 mkdir -p ${FOLDER}
 rm ${FOLDER}/*
+URL_xsec=$5
+URL_pdf_scale=$6
+
+# clean
+FILETOREMOVE=$(find ./ -name "*.root" -o -name "*.out" -o -name "*.pdf" -o -name "*.png" -o -name "*.txt")
+if [[ "${FILETOREMOVE}" != "" ]]; then
+  rm -v ${FILETOREMOVE}
+fi
 
 # fetch xsec from farmts
 echo "Downloading theoretical xsec from : ${URL_xsec}"
@@ -22,9 +28,8 @@ rMax=4
 nPoints=1000
 
 # build workspace
-rm ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
 text2workspace.py ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt  -o ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
-cp ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt ${FOLDER} 
+cp ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt ${FOLDER}
 
 # BLIND
 python automatedSignalStrength.py ${BOSON}_${CHANNEL}_${YEAR}_workspace.root ${rMin} ${rMax} ${nPoints} blind
@@ -35,7 +40,10 @@ cp ${BOSON}_${CHANNEL}_${YEAR}_signalstrength.pdf ${FOLDER}/${BOSON}_${CHANNEL}_
 python ExtractXsec4Paper.py ${BOSON} ${CHANNEL} ${YEAR} higgsCombineTest.MultiDimFit.mH200.root 'higgsCombine.freezeAll.MultiDimFit.mH200.root:FreezeAll:2' blind ${URL_xsec}/reference/${YEAR}.xsec/root/h_${BOSON}_${CHANNEL:3}_pho0_pho1_pt.dat ${URL_pdf_scale}/${BOSON}_PDF.txt
 cp ${BOSON}_${CHANNEL}_${YEAR}_xsec4paper_blind.txt ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_xsec4paper_blind.txt
 
-rm higgsCombine* *.out *.png *.pdf
+FILETOREMOVE=$(find ./ -name "higgsCombine*" -o -name "*.out" -o -name "*.pdf" -o -name "*.png")
+if [[ "${FILETOREMOVE}" != "" ]]; then
+  rm -v ${FILETOREMOVE}
+fi
 
 # UNBLIND
 python automatedSignalStrength.py ${BOSON}_${CHANNEL}_${YEAR}_workspace.root ${rMin} ${rMax} ${nPoints} unblind
@@ -46,4 +54,7 @@ cp ${BOSON}_${CHANNEL}_${YEAR}_signalstrength.pdf ${FOLDER}/${BOSON}_${CHANNEL}_
 python ExtractXsec4Paper.py ${BOSON} ${CHANNEL} ${YEAR} higgsCombineTest.MultiDimFit.mH200.root 'higgsCombine.freezeAll.MultiDimFit.mH200.root:FreezeAll:2' unblind ${URL_xsec}/reference/${YEAR}.xsec/root/h_${BOSON}_${CHANNEL:3}_pho0_pho1_pt.dat ${URL_pdf_scale}/${BOSON}_PDF.txt
 cp ${BOSON}_${CHANNEL}_${YEAR}_xsec4paper_unblind.txt ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_xsec4paper_unblind.txt
 
-rm *.root *.out *.png *.pdf *.txt
+FILETOREMOVE=$(find ./ -name "*.root" -o -name "*.out" -o -name "*.pdf" -o -name "*.png" -o -name "*.txt")
+if [[ "${FILETOREMOVE}" != "" ]]; then
+  rm -v ${FILETOREMOVE}
+fi

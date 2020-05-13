@@ -1,11 +1,9 @@
 #!/bin/bash
 
-mkdir -p html/combine_plots
-
+FOLDER=$1/syst_shape_plot
+mkdir -p $FOLDER
 BOSONS="WGG ZGG"
-
 CHANNELS="ch_ele ch_muo"
-
 YEARS="2016 2017 2018 Run2"
 
 FLAGS=""
@@ -26,19 +24,16 @@ FLAGS=$FLAGS" eg_misid"
 FLAGS=$FLAGS" jet_misid"
 
 for YEAR in ${YEARS}; do
-  python number_of_events.py ${YEAR}
-  mv events_table_${YEAR}.txt html/combine_plots/syst_shape_plot/
-  mv events_table_${YEAR}_LATEX.txt html/combine_plots/syst_shape_plot/
-  python preFit_syst_table.py ${YEAR} "${FLAGS}"
-  mv preFit_syst_table_${YEAR}.txt html/combine_plots/syst_shape_plot/
+  python number_of_events.py ${FOLDER} ${YEAR}
+  python preFit_syst_table.py ${FOLDER} ${YEAR} "${FLAGS}"
   for BOSON in ${BOSONS}; do
     for CHANNEL in ${CHANNELS}; do
       echo "--- ${BOSON} - ${CHANNEL} - ${YEAR} ---"
-      mkdir -p html/combine_plots/syst_shape_plot/${BOSON}/${CHANNEL}/${YEAR}
+      mkdir -p ${FOLDER}/${BOSON}/${CHANNEL}/${YEAR}
       for FLAG in ${FLAGS}; do
         if [[ "${FLAG}" != "reference" ]]; then
           echo "--- ${FLAG}"
-          python plotSyst.py ${BOSON} ${CHANNEL} ${YEAR} ${FLAG}
+          python plotSyst.py ${FOLDER} ${BOSON} ${CHANNEL} ${YEAR} ${FLAG}
         fi
       done
       echo ""

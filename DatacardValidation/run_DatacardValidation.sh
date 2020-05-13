@@ -1,7 +1,8 @@
 #!/bin/bash
 
-FOLDER="../html/combine_plots/likelihood_scan/DatacardValidation/"
+FOLDER=$1/likelihood_scan/DatacardValidation
 mkdir -p ${FOLDER}
+rm ${FOLDER}/*
 
 BOSONS="WGG ZGG"
 CHANNELS="ch_ele ch_muo ch_lep"
@@ -19,3 +20,8 @@ for BOSON in ${BOSONS}; do
     done
   done
 done
+
+FILETOREMOVE=$(find ./ -name "*.txt" -o -name "*.json")
+if [[ "${FILETOREMOVE}" != "" ]]; then
+  rm -v ${FILETOREMOVE}
+fi

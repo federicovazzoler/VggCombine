@@ -1,22 +1,22 @@
 #!/bin/bash
 
-BOSON=$1
-CHANNEL=$2
-YEAR=$3
-
-FOLDER="../html/combine_plots/likelihood_scan/GoodnessOfFit/${BOSON}_${CHANNEL}_${YEAR}"
+FOLDER=$1
+BOSON=$2
+CHANNEL=$3
+YEAR=$4
+FOLDER=$FOLDER/${BOSON}_${CHANNEL}_${YEAR}
 mkdir -p ${FOLDER}
 rm ${FOLDER}/*
 
 #clean
-rm *.txt
-rm *.pdf
-rm *.root
-rm combine_logger.out
+FILETOREMOVE=$(find ./ -name "*.root" -o -name "*.out" -o -name "*.txt" -o -name "*.pdf")
+if [[ "${FILETOREMOVE}" != "" ]]; then
+  rm -v ${FILETOREMOVE}
+fi
 
 nTOYS=500
 
-cp ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt ${FOLDER} 
+cp ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt ${FOLDER}
 
 #run first time on actual data to obtain t_0
 combine -M GoodnessOfFit ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt --algo=saturated
@@ -27,6 +27,6 @@ combine -M GoodnessOfFit ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt --alg
 mv higgsCombineTest.GoodnessOfFit.mH120*.root ${BOSON}_${CHANNEL}_${YEAR}_GoodnessOfFit_toys.root
 
 #p-value
-python p_value.py ${BOSON} ${CHANNEL} ${YEAR} ${nTOYS} 
+python p_value.py ${BOSON} ${CHANNEL} ${YEAR} ${nTOYS}
 cp ${BOSON}_${CHANNEL}_${YEAR}_p_value.txt ${FOLDER}/
 cp ${BOSON}_${CHANNEL}_${YEAR}_p_value.pdf ${FOLDER}/
