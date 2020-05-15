@@ -4,7 +4,7 @@ Combine scripts for the Vgg analysis
 ### Content
 
 1. [INFO](#1-INFO)
-1. [How to intall](#2-How-to-install)
+1. [How to install](#2-How-to-install)
 1. [How to run](#3-How-to-run)
 
 ### 1. INFO
