@@ -46,3 +46,11 @@ To set up the package (before cloning this repo!):
 link your html directory
 
 create all the needed datacards
+
+To run the tool:
+
+(use the correct folder for the theo uncertainties and eventually modify the path in run_them_all.sh)
+
+`cmsenv`
+
+`./run_them_all [plot version]`
