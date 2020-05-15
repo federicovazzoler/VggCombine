@@ -52,8 +52,14 @@ cp ${BOSON}_${CHANNEL}_${YEAR}_impacts_blind_mu1.pdf ${FOLDER}
 python ExtractNuisance4Paper.py ${BOSON} ${CHANNEL} ${YEAR}
 cp ${BOSON}_${CHANNEL}_${YEAR}_syst_unc.txt ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_syst_unc_blind_mu1.txt
 
+#plot likelyhood scan for each syst
+python check_sigle_nuisance.py -ws ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -rMin -4 -rMax 4 -o . -expSig 1
+timeout --preserve-status --kill-after=60 60 python plot2Dscan_params.py -i higgsCombinename.MultiDimFit.mH120.root -x r --x-label mu --outputdir .
+#python plot2Dscan_params.py -i higgsCombinename.MultiDimFit.mH120.root -x r --x-label mu --outputdir .
+convert *.png ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_single_likelyhood_scans_mu1.pdf
+
 #clean before rerunnig
-FILETOREMOVE=$(find ./ -name "higgsCombine*" -o -name "*.out" -o -name "*.txt" -o -name "*.pdf" -o -name "*impacts.json")
+FILETOREMOVE=$(find ./ -name "higgsCombine*" -o -name "*.out" -o -name "*.txt" -o -name "*.pdf" -o -name "*.png" -o -name "*impacts.json")
 if [[ "${FILETOREMOVE}" != "" ]]; then
   rm -v ${FILETOREMOVE}
 fi
@@ -75,3 +81,15 @@ cp ${BOSON}_${CHANNEL}_${YEAR}_impacts.pdf ${FOLDER}
 #extract uncertainties unblind
 python ExtractNuisance4Paper.py ${BOSON} ${CHANNEL} ${YEAR}
 cp ${BOSON}_${CHANNEL}_${YEAR}_syst_unc.txt ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_syst_unc_unblind.txt
+
+#plot likelyhood scan for each syst
+python check_sigle_nuisance.py -ws ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -rMin -4 -rMax 4 -o .
+timeout --preserve-status --kill-after=60 60 python plot2Dscan_params.py -i higgsCombinename.MultiDimFit.mH120.root -x r --x-label mu --outputdir .
+#python plot2Dscan_params.py -i higgsCombinename.MultiDimFit.mH120.root -x r --x-label mu --outputdir .
+convert *.png ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_single_likelyhood_scans.pdf
+
+#clean before rerunnig
+FILETOREMOVE=$(find ./ -name "higgsCombine*" -o -name "*.out" -o -name "*.txt" -o -name "*.pdf" -o -name "*.png" -o -name "*impacts.json")
+if [[ "${FILETOREMOVE}" != "" ]]; then
+  rm -v ${FILETOREMOVE}
+fi
