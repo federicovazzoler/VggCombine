@@ -1,11 +1,21 @@
 # VggCombine
 Combine scripts for the Vgg analysis
 
+### Content
+
+1. [INFO](#1-INFO)
+1. [How to intall](#2-How-to-install)
+1. [How to run](#3-How-to-run)
+
+### 1. INFO
+
 Please refer to this tutorial: https://twiki.cern.ch/twiki/bin/viewauth/CMS/HiggsWG/HCombExercise
 
 and to this presentation: https://indico.cern.ch/event/747340/contributions/3198653/attachments/1744339/2823486/HComb-Tutorial-FitDiagnostics.pdf
 
 New combine version available (01-04-2020): https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit/releases/tag/v8.1.0
+
+### 2. How to install
 
 If you have already installed combine v8.0.2 simply update to v8.1.0:
 
@@ -46,6 +56,8 @@ To set up the package (before cloning this repo!):
 link your html directory
 
 create all the needed datacards
+
+### 3. How to run
 
 To run the tool:
 
