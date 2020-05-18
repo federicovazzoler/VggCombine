@@ -118,19 +118,19 @@ for syst in syst_list:
     table_row[i] += ' '
 
   table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_ele.get(syst).get('sum_mc_bkg').get('systAvg') * 100)
-  for sp in range(cell_w - 6):
+  for sp in range(cell_w - 7):
     table_row[i] += ' '
 
   table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_muo.get(syst).get('sum_mc_bkg').get('systAvg') * 100)
-  for sp in range(cell_w - 6):
+  for sp in range(cell_w - 7):
     table_row[i] += ' '
 
   table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_ele.get(syst).get('sum_mc_bkg').get('systAvg') * 100)
-  for sp in range(cell_w - 6):
+  for sp in range(cell_w - 7):
     table_row[i] += ' '
 
   table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_muo.get(syst).get('sum_mc_bkg').get('systAvg') * 100)
-  for sp in range(cell_w - 6):
+  for sp in range(cell_w - 7):
     table_row[i] += ' '
 
   i += 1
@@ -150,19 +150,19 @@ for sp in range(cell_w_syst - len(table_row[i])):
   table_row[i] += ' '
 
 table_row[i] += '| {0:.2f}'.format(lumi * 100)
-for sp in range(cell_w - 6):
+for sp in range(cell_w - 7):
   table_row[i] += ' '
 
 table_row[i] += '| {0:.2f}'.format(lumi * 100)
-for sp in range(cell_w - 6):
+for sp in range(cell_w - 7):
   table_row[i] += ' '
 
 table_row[i] += '| {0:.2f}'.format(lumi * 100)
-for sp in range(cell_w - 6):
+for sp in range(cell_w - 7):
   table_row[i] += ' '
 
 table_row[i] += '| {0:.2f}'.format(lumi * 100)
-for sp in range(cell_w - 6):
+for sp in range(cell_w - 7):
   table_row[i] += ' '
 
 i += 1
@@ -172,19 +172,19 @@ for sp in range(cell_w_syst - len(table_row[i])):
   table_row[i] += ' '
 
 table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_ele.get(syst).get('sum_mc_bkg').get('stat') * 100)
-for sp in range(cell_w - 6):
+for sp in range(cell_w - 7):
   table_row[i] += ' '
 
 table_row[i] += '| {0:.2f}'.format(syst_dic_WGG_ch_muo.get(syst).get('sum_mc_bkg').get('stat') * 100)
-for sp in range(cell_w - 6):
+for sp in range(cell_w - 7):
   table_row[i] += ' '
 
 table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_ele.get(syst).get('sum_mc_bkg').get('stat') * 100)
-for sp in range(cell_w - 6):
+for sp in range(cell_w - 7):
   table_row[i] += ' '
 
 table_row[i] += '| {0:.2f}'.format(syst_dic_ZGG_ch_muo.get(syst).get('sum_mc_bkg').get('stat') * 100)
-for sp in range(cell_w - 6):
+for sp in range(cell_w - 7):
   table_row[i] += ' '
 
 
@@ -216,3 +216,87 @@ for i in range(len(syst_list) + 2):
   output_file.write('\n')
 
 output_file.close()
+
+# output in latex style
+if year == 'Run2':
+  output_file_latex = open(folder + 'preFit_syst_table_' + year + '_LATEX.txt','w')
+
+  output_file_latex.write('\\begin{table}[ht]\n')
+  output_file_latex.write('\centering\n')
+  output_file_latex.write('\\begin{tabular}{|c|c|c|}\n')
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Systematic source & $\PW(\Pe\PGn)\PGg\PGg~(\%)$ & $\PW(\PGm\PGn)\PGg\PGg~(\%)$\\\\\n')
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Luminosity & {0:.2f} & {1:.2f}\\\\\n'.format(lumi * 100, lumi * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Pile-up & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('pileup').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('pileup').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+#  output_file_latex.write('Jet energy correction & $<1$ & $<1$\\\\\n')
+#  output_file_latex.write('Jet energy resolution & $<1$ & $<1$\\\\\n')
+#  output_file_latex.write('\hline\n')
+  output_file_latex.write('Electron ID & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('sf_ele_eff').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('sf_ele_eff').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Electron reconstruction & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('sf_ele_reco').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('sf_ele_reco').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Electron trigger & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('sf_ele_trig').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('sf_ele_trig').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Muon ID & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('sf_muo_id').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('sf_muo_id').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Muon isolation & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('sf_muo_iso').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('sf_muo_iso').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Muon trigger & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('sf_muo_trig').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('sf_muo_trig').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Photon ID & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('sf_pho_eff').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('sf_pho_eff').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Photon pixel seed veto & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('sf_pho_veto').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('sf_pho_veto').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('L1 ECAL trigger prefiring & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('l1prefiring').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('l1prefiring').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Jet-photon misid. & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('jet_misid').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('jet_misid').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Electron-photon misid. & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('eg_misid').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('eg_misid').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('MC samples statistical uncertainty & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('sf_ele_eff').get('sum_mc_bkg').get('stat') * 100, syst_dic_WGG_ch_muo.get('sf_ele_eff').get('sum_mc_bkg').get('stat') * 100))
+  output_file_latex.write('Theoretical cross sections uncertainty & XXX & XXX\\\\\n')
+  output_file_latex.write('%\hline\n')
+  output_file_latex.write('%PDF sets & XXX & XXX\\\\\n')
+  output_file_latex.write('%Scales ($\mu_F$, $\mu_R$) & XXX & XXX\\\\\n')
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('\end{tabular}\n')
+  output_file_latex.write('\caption{Summary of the pre-fit impact of every systematic uncertainty on the predicted number of background events for the $\PW\PGg\PGg$ measurement.}\n')
+  output_file_latex.write('\label{t_systImp_prefit_wgg}\n')
+  output_file_latex.write('\end{table}\n')
+  output_file_latex.write('\n')
+  output_file_latex.write('\\begin{table}[ht]\n')
+  output_file_latex.write('\centering\n')
+  output_file_latex.write('\\begin{tabular}{|c|c|c|}\n')
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Systematic source & $\PZ(\Pe\Pe)\PGg\PGg~(\%)$ & $\PZ(\PGm\PGm)\PGg\PGg~(\%)$\\\\\n')
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Luminosity & {0:.2f} & {1:.2f}\\\\\n'.format(lumi * 100, lumi * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Pile-up & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('pileup').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('pileup').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+#  output_file_latex.write('Jet energy correction & $<1$ & $<1$\\\\\n')
+#  output_file_latex.write('Jet energy resolution & $<1$ & $<1$\\\\\n')
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Electron ID & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('sf_ele_eff').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('sf_ele_eff').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Electron reconstruction & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('sf_ele_reco').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('sf_ele_reco').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Electron trigger & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('sf_ele_trig').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('sf_ele_trig').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Muon ID & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('sf_muo_id').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('sf_muo_id').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Muon isolation & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('sf_muo_iso').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('sf_muo_iso').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Muon trigger & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('sf_muo_trig').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('sf_muo_trig').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Photon ID & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('sf_pho_eff').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('sf_pho_eff').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Photon pixel seed veto & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('sf_pho_veto').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('sf_pho_veto').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('L1 ECAL trigger prefiring & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('l1prefiring').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('l1prefiring').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('Jet-photon misid. & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('jet_misid').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('jet_misid').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('Electron-photon misid. & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('eg_misid').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('eg_misid').get('sum_mc_bkg').get('systAvg') * 100))
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('MC samples statistical uncertainty & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('sf_ele_eff').get('sum_mc_bkg').get('stat') * 100, syst_dic_ZGG_ch_muo.get('sf_ele_eff').get('sum_mc_bkg').get('stat') * 100))
+  output_file_latex.write('Theoretical cross sections uncertainty & XXX & XXX\\\\\n')
+  output_file_latex.write('%\hline\n')
+  output_file_latex.write('%PDF sets & XXX & XXX\\\\\n')
+  output_file_latex.write('%Scales ($\mu_F$, $\mu_R$) & XXX & XXX\\\\\n')
+  output_file_latex.write('\hline\n')
+  output_file_latex.write('\end{tabular}\n')
+  output_file_latex.write('\caption{Summary of the pre-fit impact of every systematic uncertainty on the predicted number of background events for the $\PZ\PGg\PGg$ measurement.}\n')
+  output_file_latex.write('\label{t_systImp_prefit_zgg}\n')
+  output_file_latex.write('\end{table}\n')
