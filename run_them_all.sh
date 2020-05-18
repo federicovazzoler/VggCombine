@@ -72,3 +72,5 @@ cd Significance
 ./run_all.sh $FOLDER
 echo ""
 cd ..
+
+exit

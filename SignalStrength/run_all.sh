@@ -6,7 +6,8 @@ URL_xsec=$2
 URL_pdf_scale=$3
 BOSONS="WGG ZGG"
 CHANNELS="ch_ele ch_muo ch_lep"
-YEARS="2016 2017 2018 Run2"
+#YEARS="2016 2017 2018 Run2"
+YEARS="Run2"
 
 for BOSON in ${BOSONS}; do
   for CHANNEL in ${CHANNELS}; do
