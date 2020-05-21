@@ -6,6 +6,7 @@ Combine scripts for the Vgg analysis
 1. [INFO](#1-INFO)
 1. [How to install](#2-How-to-install)
 1. [How to run](#3-How-to-run)
+1. [Advanced use](#4-Advanced-use)
 
 ### 1. INFO
 
@@ -66,3 +67,23 @@ To run the tool:
 `cmsenv`
 
 `./run_them_all [plot version]`
+
+### 4. Advanced use
+
+#### Checks on Fit Diagnostic
+
+Some useful checks to be done on Fit Diagnostic results can be found here: https://twiki.cern.ch/twiki/bin/viewauth/CMS/HiggsWG/HiggsPAGPreapprovalChecks
+
+##### When a nuisance is costrained by the fit
+
+If one of the nuisances (X) is quite heavily constrained or has a post-fit uncertainty >1 you should try to scan this nuisance parameter using:
+
+`combine -M MultiDimFit workspace.root --algo grid -P X --points 1000 --setParameterRanges X=-3,3`
+
+To see if there are double minima in the scan open the root file and launch:
+
+`limit->Draw("deltaNLL:X")`
+
+##### Diagnose fit procedure with toys
+
+Diagnose the fitting procedure in toy experiments following: http://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/part3/nonstandard/#toy-by-toy-diagnostics
