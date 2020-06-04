@@ -16,6 +16,7 @@ for BOSON in ${BOSONS}; do
       echo "Validating datacard : ${BOSON}_${CHANNEL}_${YEAR}_datacard.txt"
       echo "--------------------------------------------------"
       ValidateDatacards.py ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt -p 3 --jsonFile ${BOSON}_${CHANNEL}_${YEAR}_datacard_validation.json > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_datacard_validation.txt
+      cp ${BOSON}_${CHANNEL}_${YEAR}_datacard_validation.json ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_datacard_validation.json
       echo ""
     done
   done

@@ -23,7 +23,7 @@ combine -M GoodnessOfFit ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt --alg
 mv higgsCombineTest.GoodnessOfFit.mH120.root ${BOSON}_${CHANNEL}_${YEAR}_GoodnessOfFit.root
 
 #generate toy to infer t distribution
-combine -M GoodnessOfFit ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt --algo=saturated -t ${nTOYS} -s -1
+combine -M GoodnessOfFit ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt --algo=saturated -t ${nTOYS} -s -1 --toysFreq
 mv higgsCombineTest.GoodnessOfFit.mH120*.root ${BOSON}_${CHANNEL}_${YEAR}_GoodnessOfFit_toys.root
 
 #p-value

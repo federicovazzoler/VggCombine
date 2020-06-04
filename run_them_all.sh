@@ -9,7 +9,7 @@ FOLDER=$(pwd)/html/combine/$1
 mkdir -p $FOLDER
 
 URL_xsec=https://wwwusers.ts.infn.it/~dellaric/tmp/Vgg/$1
-URL_pdf_scale=https://wwwusers.ts.infn.it/~gsorrent/FedericoVGG/25APR
+URL_pdf_scale=https://wwwusers.ts.infn.it/~fvazzole/rivet/v15.default/
 
 url_string_xsec="Theoretical xsecs from : ${URL_xsec}"
 url_string_theo="Theoretical uncs on xsec from : ${URL_pdf_scale}"

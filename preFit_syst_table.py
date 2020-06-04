@@ -270,7 +270,7 @@ if year == 'Run2':
   output_file_latex.write('Luminosity & {0:.2f} & {1:.2f}\\\\\n'.format(lumi * 100, lumi * 100))
   output_file_latex.write('\hline\n')
   output_file_latex.write('Pile-up & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('pileup').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('pileup').get('sum_mc_bkg').get('systAvg') * 100))
-  output_file_latex.write('\hline\n')
+#  output_file_latex.write('\hline\n')
 #  output_file_latex.write('Jet energy correction & $<1$ & $<1$\\\\\n')
 #  output_file_latex.write('Jet energy resolution & $<1$ & $<1$\\\\\n')
   output_file_latex.write('\hline\n')
