@@ -22,6 +22,7 @@ FLAGS=$FLAGS" sf_pho_veto"
 FLAGS=$FLAGS" l1prefiring"
 FLAGS=$FLAGS" eg_misid"
 FLAGS=$FLAGS" jet_misid"
+FLAGS=$FLAGS" lumi"
 
 for YEAR in ${YEARS}; do
   python number_of_events.py ${FOLDER} ${YEAR}

@@ -195,14 +195,14 @@ if boson == 'WGG':
   nevt_bkg_egmisid_systDown = h_bkg_egmisid_systDown.Integral(0, h_bkg_egmisid_systDown.GetNbinsX()+1)
   sum_nevt_systDown += nevt_bkg_egmisid_systDown 
 
-output_file = open(folder + boson + '/' + channel + '/' + year + '/' + boson + '_' + channel + '_' + syst + '.txt','w')
+#output_file = open(folder + boson + '/' + channel + '/' + year + '/' + boson + '_' + channel + '_' + syst + '.txt','w')
 
-output_file.write('Sum MC reference: {0}\n'.format(sum_nevt))
-output_file.write('Sum MC SystUp   : {0}\n'.format(sum_nevt_systUp))
-output_file.write('Sum MC SystDown : {0}\n'.format(sum_nevt_systDown))
-output_file.write('Effect Up       : {0:.2f} %\n'.format((sum_nevt_systUp/sum_nevt - 1) * 100))
-output_file.write('Effect Down     : {0:.2f} %\n'.format((sum_nevt_systDown/sum_nevt - 1) * 100))
-if syst == 'jet_misid':
-  output_file.write('Effect stat     : {0:.2f} %\n'.format(float((sum_nevt + h_bkg_jetpho_misid.GetBinError(0) + h_bkg_jetpho_misid.GetBinError(1) + h_bkg_jetpho_misid.GetBinError(2) + h_bkg_jetpho_misid.GetBinError(3) + h_bkg_jetpho_misid.GetBinError(4))/sum_nevt)))
+#output_file.write('Sum MC reference: {0}\n'.format(sum_nevt))
+#output_file.write('Sum MC SystUp   : {0}\n'.format(sum_nevt_systUp))
+#output_file.write('Sum MC SystDown : {0}\n'.format(sum_nevt_systDown))
+#output_file.write('Effect Up       : {0:.2f} %\n'.format((sum_nevt_systUp/sum_nevt - 1) * 100))
+#output_file.write('Effect Down     : {0:.2f} %\n'.format((sum_nevt_systDown/sum_nevt - 1) * 100))
+#if syst == 'jet_misid':
+#  output_file.write('Effect stat     : {0:.2f} %\n'.format(float((sum_nevt + h_bkg_jetpho_misid.GetBinError(0) + h_bkg_jetpho_misid.GetBinError(1) + h_bkg_jetpho_misid.GetBinError(2) + h_bkg_jetpho_misid.GetBinError(3) + h_bkg_jetpho_misid.GetBinError(4))/sum_nevt)))
   
 #output_file.write('Effect avg      : {0:.2f} %%\n'.format(abs((sum_nevt_systUp/sum_nevt - 1) + (sum_nevt_systDown/sum_nevt - 1)) * 100))

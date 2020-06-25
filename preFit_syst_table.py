@@ -145,27 +145,27 @@ if year == '2018':
 if year == 'Run2':
   lumi = lumi_list[3]
 
-table_row[i] += ' lumi'
-for sp in range(cell_w_syst - len(table_row[i])):
-  table_row[i] += ' '
+#table_row[i] += ' lumi'
+#for sp in range(cell_w_syst - len(table_row[i])):
+#  table_row[i] += ' '
+#
+#table_row[i] += '| {0:.2f}'.format(lumi * 100)
+#for sp in range(cell_w - 7):
+#  table_row[i] += ' '
+#
+#table_row[i] += '| {0:.2f}'.format(lumi * 100)
+#for sp in range(cell_w - 7):
+#  table_row[i] += ' '
+#
+#table_row[i] += '| {0:.2f}'.format(lumi * 100)
+#for sp in range(cell_w - 7):
+#  table_row[i] += ' '
+#
+#table_row[i] += '| {0:.2f}'.format(lumi * 100)
+#for sp in range(cell_w - 7):
+#  table_row[i] += ' '
 
-table_row[i] += '| {0:.2f}'.format(lumi * 100)
-for sp in range(cell_w - 7):
-  table_row[i] += ' '
-
-table_row[i] += '| {0:.2f}'.format(lumi * 100)
-for sp in range(cell_w - 7):
-  table_row[i] += ' '
-
-table_row[i] += '| {0:.2f}'.format(lumi * 100)
-for sp in range(cell_w - 7):
-  table_row[i] += ' '
-
-table_row[i] += '| {0:.2f}'.format(lumi * 100)
-for sp in range(cell_w - 7):
-  table_row[i] += ' '
-
-i += 1
+#i += 1
 
 table_row[i] += ' mc stat'
 for sp in range(cell_w_syst - len(table_row[i])):
@@ -227,7 +227,7 @@ if year == 'Run2':
   output_file_latex.write('\hline\n')
   output_file_latex.write('Systematic source & $\PW(\Pe\PGn)\PGg\PGg~(\%)$ & $\PW(\PGm\PGn)\PGg\PGg~(\%)$\\\\\n')
   output_file_latex.write('\hline\n')
-  output_file_latex.write('Luminosity & {0:.2f} & {1:.2f}\\\\\n'.format(lumi * 100, lumi * 100))
+  output_file_latex.write('Luminosity & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('lumi').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('lumi').get('sum_mc_bkg').get('systAvg') * 100))
   output_file_latex.write('\hline\n')
   output_file_latex.write('Pile-up & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_WGG_ch_ele.get('pileup').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_WGG_ch_muo.get('pileup').get('sum_mc_bkg').get('systAvg') * 100))
   output_file_latex.write('\hline\n')
@@ -267,7 +267,7 @@ if year == 'Run2':
   output_file_latex.write('\hline\n')
   output_file_latex.write('Systematic source & $\PZ(\Pe\Pe)\PGg\PGg~(\%)$ & $\PZ(\PGm\PGm)\PGg\PGg~(\%)$\\\\\n')
   output_file_latex.write('\hline\n')
-  output_file_latex.write('Luminosity & {0:.2f} & {1:.2f}\\\\\n'.format(lumi * 100, lumi * 100))
+  output_file_latex.write('Luminosity & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('lumi').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('lumi').get('sum_mc_bkg').get('systAvg') * 100))
   output_file_latex.write('\hline\n')
   output_file_latex.write('Pile-up & {0:.2f} & {1:.2f}\\\\\n'.format(syst_dic_ZGG_ch_ele.get('pileup').get('sum_mc_bkg').get('systAvg') * 100, syst_dic_ZGG_ch_muo.get('pileup').get('sum_mc_bkg').get('systAvg') * 100))
 #  output_file_latex.write('\hline\n')
