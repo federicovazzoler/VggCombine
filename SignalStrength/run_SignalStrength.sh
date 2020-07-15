@@ -23,8 +23,8 @@ wget -q -O ${BOSON}_${CHANNEL}_${YEAR}_theoxsec.txt ${URL_xsec}/reference/${YEAR
 echo "Downloading pdf and scale file from : ${URL_pdf_scale}"
 wget -q -O ${BOSON}_PDF.txt ${URL_pdf_scale}/${BOSON}_PDF.txt
 
-rMin=-1
-rMax=4
+rMin=0
+rMax=2
 nPoints=1000
 
 # build workspace

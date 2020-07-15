@@ -39,10 +39,11 @@ if [[ "${FILETOREMOVE}" != "" ]]; then
 fi
 
 #+++++BLIND mu = 1+++++
-python looTcombine.py ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -4 4 1
+#python looTcombine.py ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -20 3 1
+python looTcombine.py ${BOSON}_${CHANNEL}_${YEAR}_workspace.root 0 2 1
 
 #collect output and convert to json file
-combineTool.py -M Impacts -d ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 200 --rMin -4 --rMax 4 --robustFit 1 --output ${BOSON}_${CHANNEL}_${YEAR}_impacts.json
+combineTool.py -M Impacts -d ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 200 --rMin -0 --rMax 2 --robustFit 1 --output ${BOSON}_${CHANNEL}_${YEAR}_impacts.json
 
 #plot the result blind
 plotImpacts.py -i ${BOSON}_${CHANNEL}_${YEAR}_impacts.json -o ${BOSON}_${CHANNEL}_${YEAR}_impacts_blind_mu1 -t rename.json
@@ -53,7 +54,7 @@ python ExtractNuisance4Paper.py ${BOSON} ${CHANNEL} ${YEAR}
 cp ${BOSON}_${CHANNEL}_${YEAR}_syst_unc.txt ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_syst_unc_blind_mu1.txt
 
 #plot likelyhood scan for each syst
-python check_sigle_nuisance.py -ws ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -rMin -4 -rMax 4 -o . -expSig 1
+python check_sigle_nuisance.py -ws ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -rMin 0 -rMax 2 -o . -expSig 1
 timeout --preserve-status --kill-after=60 60 python plot2Dscan_params.py -i higgsCombinename.MultiDimFit.mH120.root -x r --x-label mu --outputdir .
 #python plot2Dscan_params.py -i higgsCombinename.MultiDimFit.mH120.root -x r --x-label mu --outputdir .
 convert *.png ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_single_likelyhood_scans_mu1.pdf
