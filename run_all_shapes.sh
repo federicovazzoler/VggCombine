@@ -4,7 +4,8 @@ FOLDER=$1/syst_shape_plot
 mkdir -p $FOLDER
 BOSONS="WGG ZGG"
 CHANNELS="ch_ele ch_muo"
-YEARS="2016 2017 2018 Run2"
+#YEARS="2016 2017 2018 Run2"
+YEARS="Run2"
 
 FLAGS=""
 FLAGS=$FLAGS" reference"
@@ -21,8 +22,12 @@ FLAGS=$FLAGS" sf_pho_eff"
 FLAGS=$FLAGS" sf_pho_veto"
 FLAGS=$FLAGS" l1prefiring"
 FLAGS=$FLAGS" eg_misid"
-FLAGS=$FLAGS" jet_misid"
+FLAGS=$FLAGS" jet_misid_syst"
 FLAGS=$FLAGS" lumi"
+#FLAGS=$FLAGS" bkg_syst"
+FLAGS=$FLAGS" xsec_syst_wg"
+FLAGS=$FLAGS" xsec_syst_zg"
+FLAGS=$FLAGS" xsec_syst_other"
 
 for YEAR in ${YEARS}; do
   python number_of_events.py ${FOLDER} ${YEAR}
