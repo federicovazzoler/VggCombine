@@ -1,5 +1,7 @@
 #!/bin/bash
 
+eval `scramv1 runtime -sh`
+
 if [[ $1 == "" ]]; then
   echo "please specify output folder"
   exit 1
