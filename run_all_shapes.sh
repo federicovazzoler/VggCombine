@@ -27,7 +27,8 @@ FLAGS=$FLAGS" lumi"
 #FLAGS=$FLAGS" bkg_syst"
 FLAGS=$FLAGS" xsec_syst_wg"
 FLAGS=$FLAGS" xsec_syst_zg"
-FLAGS=$FLAGS" xsec_syst_other"
+FLAGS=$FLAGS" xsec_syst_others"
+FLAGS=$FLAGS" jet_misid_test"
 
 for YEAR in ${YEARS}; do
   python number_of_events.py ${FOLDER} ${YEAR}
