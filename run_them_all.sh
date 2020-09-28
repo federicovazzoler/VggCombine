@@ -75,6 +75,6 @@ cd Significance
 echo ""
 cd ..
 
-./forRepository.sh $1
+#./forRepository.sh $1
 
 exit

@@ -22,13 +22,15 @@ FLAGS=$FLAGS" sf_pho_eff"
 FLAGS=$FLAGS" sf_pho_veto"
 FLAGS=$FLAGS" l1prefiring"
 FLAGS=$FLAGS" eg_misid"
-FLAGS=$FLAGS" jet_misid_syst"
+#FLAGS=$FLAGS" jet_misid_syst"
 FLAGS=$FLAGS" lumi"
 #FLAGS=$FLAGS" bkg_syst"
 FLAGS=$FLAGS" xsec_syst_wg"
 FLAGS=$FLAGS" xsec_syst_zg"
 FLAGS=$FLAGS" xsec_syst_others"
-FLAGS=$FLAGS" jet_misid_test"
+#FLAGS=$FLAGS" jet_misid_test"
+FLAGS=$FLAGS" jet_misid_qcd"
+FLAGS=$FLAGS" jet_misid_sherpa"
 
 for YEAR in ${YEARS}; do
   python number_of_events.py ${FOLDER} ${YEAR}

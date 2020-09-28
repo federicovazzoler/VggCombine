@@ -23,7 +23,7 @@ wget -q -O ${BOSON}_${CHANNEL}_${YEAR}_theoxsec.txt ${URL_xsec}/reference/${YEAR
 echo "Downloading pdf and scale file from : ${URL_pdf_scale}"
 wget -q -O ${BOSON}_PDF.txt ${URL_pdf_scale}/${BOSON}_PDF.txt
 
-rMin=0
+rMin=0.1
 rMax=2
 nPoints=1000
 
