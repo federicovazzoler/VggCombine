@@ -1,7 +1,8 @@
 #!/bin/bash
 
 BOSONS="WGG ZGG"
-YEARS="2016 2017 2018 Run2"
+#YEARS="2016 2017 2018 Run2"
+YEARS="Run2"
 
 for BOSON in ${BOSONS}; do
   for YEAR in ${YEARS}; do
