@@ -11,6 +11,10 @@ rm ${FOLDER}/*
 rMin=0.1
 rMax=2
 
+if [[ "$BOSON" == "WGG" && "$CHANNEL" == "ch_ele" ]]; then
+  rMin=-1
+fi
+
 #clean
 FILETOREMOVE=$(find ./ -name "*.root" -o -name "*.out" -o -name "*.txt" -o -name "*.pdf" -o -name "*impacts.json")
 if [[ "${FILETOREMOVE}" != "" ]]; then
@@ -78,7 +82,7 @@ combineTool.py -M Impacts -d ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 200 -
 combineTool.py -M Impacts -d ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 200 --rMin ${rMin} --rMax ${rMax} --robustFit 1 --output ${BOSON}_${CHANNEL}_${YEAR}_impacts.json
 
 #plot the result unblind
-plotImpacts.py -i ${BOSON}_${CHANNEL}_${YEAR}_impacts.json -o ${BOSON}_${CHANNEL}_${YEAR}_impacts -t rename.json
+plotImpacts.py -i ${BOSON}_${CHANNEL}_${YEAR}_impacts.json -o ${BOSON}_${CHANNEL}_${YEAR}_impacts -t rename.json --blind
 cp ${BOSON}_${CHANNEL}_${YEAR}_impacts.pdf ${FOLDER}
 
 #extract uncertainties unblind

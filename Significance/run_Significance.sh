@@ -11,6 +11,10 @@ rm ${FOLDER}/*
 rMin=0.1
 rMax=2
 
+if [[ "$BOSON" == "WGG" && "$CHANNEL" == "ch_ele" ]]; then
+  rMin=-1
+fi
+
 #clean
 FILETOREMOVE=$(find ./ -name "*.root" -o -name "*.out" -o -name "*.txt")
 if [[ "${FILETOREMOVE}" != "" ]]; then

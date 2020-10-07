@@ -27,6 +27,10 @@ rMin=0.1
 rMax=2
 nPoints=1000
 
+if [[ "$BOSON" == "WGG" && "$CHANNEL" == "ch_ele" ]]; then
+  rMin=-1
+fi
+
 # build workspace
 text2workspace.py ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt  -o ${BOSON}_${CHANNEL}_${YEAR}_workspace.root
 cp ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt ${FOLDER}
