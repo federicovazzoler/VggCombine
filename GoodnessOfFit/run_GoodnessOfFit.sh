@@ -27,6 +27,7 @@ combine -M GoodnessOfFit ../cards/${BOSON}_${CHANNEL}_${YEAR}_datacard.txt --alg
 mv higgsCombineTest.GoodnessOfFit.mH120*.root ${BOSON}_${CHANNEL}_${YEAR}_GoodnessOfFit_toys.root
 
 #p-value
-python p_value.py ${BOSON} ${CHANNEL} ${YEAR} ${nTOYS}
+#python p_value.py ${BOSON} ${CHANNEL} ${YEAR} ${nTOYS}
+python plotGOF.py ${BOSON} ${CHANNEL} ${YEAR} ${nTOYS}
 cp ${BOSON}_${CHANNEL}_${YEAR}_p_value.txt ${FOLDER}/
 cp ${BOSON}_${CHANNEL}_${YEAR}_p_value.pdf ${FOLDER}/
