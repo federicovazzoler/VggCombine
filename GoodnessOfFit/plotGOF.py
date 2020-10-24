@@ -53,7 +53,7 @@ arr.Draw("<|same")
 
 pt = ROOT.TPaveText(0.6,0.7,0.8,0.9,"NDCNB");
 pt.AddText("num. toys : %i" % int(nToys));
-pt.AddText("#lambda_{0} : %i" % int(nToys));
+pt.AddText("#lambda_{0} : %.2f" % float(obs));
 pt.AddText("p-value : %.2f" % pval);
 pt.Draw('same');
 
