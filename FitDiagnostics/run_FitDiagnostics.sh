@@ -78,4 +78,6 @@ if [[ "${CHANNEL}" != "ch_lep" ]]; then
   python FitPlot_v2.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic ${CHANNEL} postfit ${FOLDER}
  
   python mlfitNormsToText.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root -u > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_nevt.txt
+
+  python FitPlot_v3.py -input_file ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic -channel ${CHANNEL} -output_folder ${FOLDER}
 fi

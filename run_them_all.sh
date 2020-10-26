@@ -35,45 +35,45 @@ done
 echo ""
 echo ""
 
-sleep 10
-
-./run_all_shapes.sh $FOLDER
-echo ""
-
+#sleep 10
+#
+#./run_all_shapes.sh $FOLDER
+#echo ""
+#
 cd cards
 ./combine_channels.sh
 echo ""
 cd ..
 
-cd DatacardValidation
-./run_DatacardValidation.sh $FOLDER
-echo ""
-cd ..
-
+#cd DatacardValidation
+#./run_DatacardValidation.sh $FOLDER
+#echo ""
+#cd ..
+#
 cd FitDiagnostics
 ./run_all.sh $FOLDER
 echo ""
 cd ..
 
-cd GoodnessOfFit
-./run_all.sh $FOLDER
-echo ""
-cd ..
+#cd GoodnessOfFit
+#./run_all.sh $FOLDER
+#echo ""
+#cd ..
 
-cd NuisanceImpacts
-./run_all.sh $FOLDER
-echo ""
-cd ..
-
-cd SignalStrength
-./run_all.sh $FOLDER $URL_xsec $URL_pdf_scale
-echo ""
-cd ..
-
-cd Significance
-./run_all.sh $FOLDER
-echo ""
-cd ..
+#cd NuisanceImpacts
+#./run_all.sh $FOLDER
+#echo ""
+#cd ..
+#
+#cd SignalStrength
+#./run_all.sh $FOLDER $URL_xsec $URL_pdf_scale
+#echo ""
+#cd ..
+#
+#cd Significance
+#./run_all.sh $FOLDER
+#echo ""
+#cd ..
 
 #./forRepository.sh $1
 
