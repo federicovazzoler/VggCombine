@@ -44,8 +44,8 @@ def createCanvasPads(nPads):
   # Upper histogram plot is pad1
   padList.append(ROOT.TPad("pad1", "pad1", 0.0, 0.4, 1.0, 1.0))
   padList[0].SetBottomMargin(0.2)  # joins upper and lower plot
-  padList[0].SetGridx()
-  padList[0].SetGridy()
+  #padList[0].SetGridx()
+  #padList[0].SetGridy()
   padList[0].Draw()
   c.cd()
 
@@ -117,6 +117,7 @@ h_data_postfit = fin.Get('shapes_fit_s' + '/' + args.channel + '/data')
 # sig postfit
 h_sig_postfit = fin.Get('shapes_fit_s' + '/' + args.channel + '/diboson')
 h_sig_postfit.SetLineColor(6)
+h_sig_postfit.SetLineStyle(2)
 h_sig_postfit.SetMarkerColor(6)
 h_sig_postfit.SetMarkerStyle(24)
 h_sig_postfit.SetMarkerSize(1)
@@ -131,6 +132,7 @@ for my_index in range(0, len(my_list_postfit)):
 # lo style si vede
 for my_index in range(0, len(h_bkg_postfit)):
   h_bkg_postfit[my_index].SetLineColor(2 + my_index)
+  h_bkg_postfit[my_index].SetLineStyle(2)
   h_bkg_postfit[my_index].SetMarkerColor(2 + my_index)
   h_bkg_postfit[my_index].SetMarkerStyle(24)
   h_bkg_postfit[my_index].SetMarkerSize(1)
