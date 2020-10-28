@@ -45,35 +45,35 @@ cd cards
 echo ""
 cd ..
 
-#cd DatacardValidation
-#./run_DatacardValidation.sh $FOLDER
-#echo ""
-#cd ..
-#
+cd DatacardValidation
+./run_DatacardValidation.sh $FOLDER
+echo ""
+cd ..
+
 cd FitDiagnostics
 ./run_all.sh $FOLDER
 echo ""
 cd ..
 
-#cd GoodnessOfFit
-#./run_all.sh $FOLDER
-#echo ""
-#cd ..
+cd GoodnessOfFit
+./run_all.sh $FOLDER
+echo ""
+cd ..
 
-#cd NuisanceImpacts
-#./run_all.sh $FOLDER
-#echo ""
-#cd ..
-#
-#cd SignalStrength
-#./run_all.sh $FOLDER $URL_xsec $URL_pdf_scale
-#echo ""
-#cd ..
-#
-#cd Significance
-#./run_all.sh $FOLDER
-#echo ""
-#cd ..
+cd NuisanceImpacts
+./run_all.sh $FOLDER
+echo ""
+cd ..
+
+cd SignalStrength
+./run_all.sh $FOLDER $URL_xsec $URL_pdf_scale
+echo ""
+cd ..
+
+cd Significance
+./run_all.sh $FOLDER
+echo ""
+cd ..
 
 #./forRepository.sh $1
 
