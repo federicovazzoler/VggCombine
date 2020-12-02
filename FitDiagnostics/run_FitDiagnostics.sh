@@ -80,4 +80,10 @@ if [[ "${CHANNEL}" != "ch_lep" ]]; then
   python mlfitNormsToText.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root -u > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_nevt.txt
 
   python FitPlot_v3.py -input_file ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic -channel ${CHANNEL} -output_folder ${FOLDER}
+  
+  SYSTS="jet_misid_qcd"
+  SYSTS=${SYSTS}" jet_misid_sherpa"
+  for SYST in ${SYSTS}; do
+    python FitPlot_v4.py -boson ${BOSON} -channel ${CHANNEL} -year ${YEAR} -syst ${SYST} -input_file_postfit ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic -output_folder ${FOLDER}
+  done
 fi
