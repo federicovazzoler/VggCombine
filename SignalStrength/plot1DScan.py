@@ -99,7 +99,7 @@ parser.add_argument('--main-color', default=1, type=int, help='line and marker c
 parser.add_argument('--others', nargs='*', help='add secondary scans processed as main: FILE:LABEL:COLOR')
 parser.add_argument('--breakdown', help='do quadratic error subtraction using --others')
 parser.add_argument('--logo', default='CMS')
-parser.add_argument('--logo-sub', default='Internal')
+parser.add_argument('--logo-sub', default='Work in progress')
 args = parser.parse_args()
 
 print '--------------------------------------'
