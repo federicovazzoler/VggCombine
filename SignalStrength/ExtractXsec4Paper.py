@@ -186,7 +186,7 @@ if year == 'Run2':
   elif channel == 'ch_muo': linetoread = 34
 
   pdf_scale = open(boson + '_PDF.txt').readlines()
-  pdf_scale = float(pdf_scale[linetoread].strip().replace('+-', '').split('  ')[1])
+  pdf_scale = float(pdf_scale[linetoread].strip().replace('+-', '').replace('(total error)', '').replace('--> ', '').replace('%', '').split('  ')[3])
 
 # prepare strings
 if boson == 'WGG':
@@ -201,6 +201,19 @@ elif boson == 'ZGG':
     xsec_string = '\sigma(\PZ\PGg\PGg)^\mathrm{{exp.}}_{{\PGm\PGm}} &= {0:.2f} '.format(combineXsec)
 
 #  syststat_string = ' ^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
+
+# output
+output_file = open(boson + "_" + channel + "_" + year + "_xsec4paper" + "_" + isBlind + ".txt","w")
+output_file.write('Generator xsec from          : ' + URL_xsec + '\n')
+output_file.write('pdf + scale uncertainty from : ' + URL_pdf_scale + '\n')
+output_file.write('\n')
+output_file.write('Generator xsec               = {0} +- {1}\n'.format(inputXsec, inputXsecStatErr))
+output_file.write('pdf + scale uncertainty (%)  = {0}\n'.format(pdf_scale))
+pdf_scale = pdf_scale * combineXsec / 100.
+output_file.write('Mu                           = {0:.2f} +{1:.2f} -{2:.2f} (Syst.) +{3:.2f} -{4:.2f} (Stat.)\n'.format(abs(mu), abs(hi_syst), abs(lo_syst), abs(hi_stat), abs(lo_stat)))
+output_file.write('Combine xsec                 = {0:.2f} +{1:.2f} -{2:.2f} (Stat.) +{3:.2f} -{4:.2f} (Syst.) + {5:.2f} (pdf + scale)\n'.format(abs(combineXsec), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo), abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(pdf_scale)))
+output_file.write('\n')
+
 syststat_string  = '^{{+'
 syststat_string += '{0:.2f}'.format(abs(combineXsec_stat_hi))
 syststat_string += '}}_{{-'
@@ -213,15 +226,5 @@ syststat_string += '}} \mathrm{{(syst.)}}'
 
 pdf_scale_string = '\pm {0:.2f} \mathrm{{(pdf + scale)}}'.format(abs(pdf_scale))
 
-# output
-output_file = open(boson + "_" + channel + "_" + year + "_xsec4paper" + "_" + isBlind + ".txt","w")
-output_file.write('Generator xsec from          : ' + URL_xsec + '\n')
-output_file.write('pdf + scale uncertainty from : ' + URL_pdf_scale + '\n')
-output_file.write('\n')
-output_file.write('Generator xsec               = {0} +- {1}\n'.format(inputXsec, inputXsecStatErr))
-output_file.write('pdf + scale uncertainty      = {0}\n'.format(pdf_scale))
-output_file.write('Mu                           = {0:.2f} +{1:.2f} -{2:.2f} (Syst.) +{3:.2f} -{4:.2f} (Stat.)\n'.format(abs(mu), abs(hi_syst), abs(lo_syst), abs(hi_stat), abs(lo_stat)))
-output_file.write('Combine xsec                 = {0:.2f} +{1:.2f} -{2:.2f} (Stat.) +{3:.2f} -{4:.2f} (Syst.) + {5:.2f} (pdf + scale)\n'.format(abs(combineXsec), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo), abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(pdf_scale)))
-output_file.write('\n')
 output_file.write('Latex 4 paper                : ' + xsec_string + ' ' + syststat_string + ' ' + pdf_scale_string + ' \, \mathrm{{fb}} \\' + '\\ \n')
 output_file.close()
