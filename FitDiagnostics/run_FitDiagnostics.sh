@@ -64,7 +64,7 @@ combine -M FitDiagnostics ${BOSON}_${CHANNEL}_${YEAR}_workspace.root -m 125 --rM
 mv fitDiagnostics.root ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root
 
 #diffNuisances plot
-python diffNuisances.py -A -a ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root -g ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_plots.root > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_diffNuisances.txt
+python diffNuisances.py -A -a ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic.root -g ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_plots.root -f html > ${FOLDER}/${BOSON}_${CHANNEL}_${YEAR}_diffNuisances.html
 
 python PlotDiffNuisances.py ${BOSON}_${CHANNEL}_${YEAR}_fitDiagnostic_plots ${FOLDER}
 
