@@ -135,6 +135,9 @@ main_scan['graph'].Draw('AP')
 axishist = plot.GetAxisHist(pads[0])
 
 axishist.SetMaximum(args.y_max)
+#FIXME
+axishist.SetMinimum(0.)
+#FIXME
 axishist.GetYaxis().SetTitle("- 2 #Delta ln L")
 axishist.GetXaxis().SetTitle("%s" % fixed_name)
 
