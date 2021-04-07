@@ -10,7 +10,8 @@ fi
 FOLDER=$(pwd)/html/combine/$1
 mkdir -p $FOLDER
 
-URL_xsec=https://wwwusers.ts.infn.it/~dellaric/tmp/Vgg/$1
+#URL_xsec=https://wwwusers.ts.infn.it/~dellaric/tmp/Vgg/$1
+URL_xsec=RIVET
 URL_pdf_scale=https://wwwusers.ts.infn.it/~fvazzole/rivet/$1
 
 url_string_xsec="Theoretical xsecs from : ${URL_xsec}"
@@ -36,10 +37,10 @@ echo ""
 echo ""
 
 #sleep 10
-#
-#./run_all_shapes.sh $FOLDER
-#echo ""
-#
+
+./run_all_shapes.sh $FOLDER
+echo ""
+
 cd cards
 ./combine_channels.sh
 echo ""
@@ -55,12 +56,7 @@ cd FitDiagnostics
 echo ""
 cd ..
 
-cd GoodnessOfFit
-./run_all.sh $FOLDER
-echo ""
-cd ..
-
-cd NuisanceImpacts
+cd Significance
 ./run_all.sh $FOLDER
 echo ""
 cd ..
@@ -70,7 +66,12 @@ cd SignalStrength
 echo ""
 cd ..
 
-cd Significance
+cd NuisanceImpacts
+./run_all.sh $FOLDER
+echo ""
+cd ..
+
+cd GoodnessOfFit
 ./run_all.sh $FOLDER
 echo ""
 cd ..

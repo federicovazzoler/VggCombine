@@ -167,10 +167,19 @@ for other in other_scans:
   lo_stat = v_lo[1]
 
 # open theo xsec
-GenXsecAndErr = open(boson + '_' + channel + '_' + year + '_theoxsec.txt').readline().strip().split('(')[1].replace(')', '').replace(' +-', '')
+#GenXsecAndErr = open(boson + '_' + channel + '_' + year + '_theoxsec.txt').readline().strip().split('(')[1].replace(')', '').replace(' +-', '')
+#
+#inputXsec = float(GenXsecAndErr.split(' ')[0]) * 1000
+#inputXsecStatErr = float(GenXsecAndErr.split(' ')[1]) * 1000
 
-inputXsec = float(GenXsecAndErr.split(' ')[0]) * 1000
-inputXsecStatErr = float(GenXsecAndErr.split(' ')[1]) * 1000
+# now theo xsec from RIVET
+if boson == 'WGG':
+  inputXsec = 18.6953
+  inputXsecStatErr = 0.0321321
+
+if boson == 'ZGG':
+  inputXsec = 5.95678
+  inputXsecStatErr = 0.0113444
 
 combineXsec = float(inputXsec) * float(mu)
 combineXsec_syst_hi = float(inputXsec) * float(hi_syst)
@@ -189,16 +198,29 @@ if year == 'Run2':
   pdf_scale = float(pdf_scale[linetoread].strip().replace('+-', '').replace('(total error)', '').replace('--> ', '').replace('%', '').split('  ')[3])
 
 # prepare strings
-if boson == 'WGG':
-  if channel == 'ch_ele':
-    xsec_string = '\sigma(\PW\PGg\PGg)^\mathrm{{exp.}}_{{\Pe\PGn}} &= {0:.2f}'.format(combineXsec)
-  elif channel == 'ch_muo':
-    xsec_string = '\sigma(\PW\PGg\PGg)^\mathrm{{exp.}}_{{\PGm\PGn}} &= {0:.2f}'.format(combineXsec)
-elif boson == 'ZGG':
-  if channel == 'ch_ele':
-    xsec_string = '\sigma(\PZ\PGg\PGg)^\mathrm{{exp.}}_{{\Pe\Pe}} &= {0:.2f} '.format(combineXsec)
-  elif channel == 'ch_muo':
-    xsec_string = '\sigma(\PZ\PGg\PGg)^\mathrm{{exp.}}_{{\PGm\PGm}} &= {0:.2f} '.format(combineXsec)
+if isBlind == 'blind':
+  if boson == 'WGG':
+    if channel == 'ch_ele':
+      xsec_string = '\sigma(\PW\PGg\PGg)^\\text{{exp}}_{{\Pe\PGn}}&={0:.2f}'.format(combineXsec)
+    elif channel == 'ch_muo':
+      xsec_string = '\sigma(\PW\PGg\PGg)^\\text{{exp}}_{{\PGm\PGn}}&={0:.2f}'.format(combineXsec)
+  elif boson == 'ZGG':
+    if channel == 'ch_ele':
+      xsec_string = '\sigma(\PZ\PGg\PGg)^\\text{{exp}}_{{\Pe\Pe}}&={0:.2f}'.format(combineXsec)
+    elif channel == 'ch_muo':
+      xsec_string = '\sigma(\PZ\PGg\PGg)^\\text{{exp}}_{{\PGm\PGm}}&={0:.2f}'.format(combineXsec)
+
+if isBlind == 'unblind':
+  if boson == 'WGG':
+    if channel == 'ch_ele':
+      xsec_string = '\sigma(\PW\PGg\PGg)^\\text{{meas}}_{{\Pe\PGn}}&={0:.2f}'.format(combineXsec)
+    elif channel == 'ch_muo':
+      xsec_string = '\sigma(\PW\PGg\PGg)^\\text{{meas}}_{{\PGm\PGn}}&={0:.2f}'.format(combineXsec)
+  elif boson == 'ZGG':
+    if channel == 'ch_ele':
+      xsec_string = '\sigma(\PZ\PGg\PGg)^\\text{{meas}}_{{\Pe\Pe}}&={0:.2f}'.format(combineXsec)
+    elif channel == 'ch_muo':
+      xsec_string = '\sigma(\PZ\PGg\PGg)^\\text{{meas.}}_{{\PGm\PGm}}&={0:.2f}'.format(combineXsec)
 
 #  syststat_string = ' ^{{{0:.2f}}}_{{{1:.2f}}} \mathrm{{(syst.)}} ^{{{2:.2f}}}_{{{3:.2f}}} \mathrm{{(stat.)}} '.format(abs(combineXsec_syst_hi), abs(combineXsec_syst_lo), abs(combineXsec_stat_hi), abs(combineXsec_stat_lo))
 
@@ -218,13 +240,13 @@ syststat_string  = '^{{+'
 syststat_string += '{0:.2f}'.format(abs(combineXsec_stat_hi))
 syststat_string += '}}_{{-'
 syststat_string += '{0:.2f}'.format(abs(combineXsec_stat_lo))
-syststat_string += '}} \mathrm{{(stat.)}} ^{{+'
+syststat_string += '}}\stat^{{+'
 syststat_string += '{0:.2f}'.format(abs(combineXsec_syst_hi))
 syststat_string += '}}_{{-'
 syststat_string += '{0:.2f}'.format(abs(combineXsec_syst_lo))
-syststat_string += '}} \mathrm{{(syst.)}}'
+syststat_string += '}}\syst'
 
-pdf_scale_string = '\pm {0:.2f} \mathrm{{(pdf + scale)}}'.format(abs(pdf_scale))
+pdf_scale_string = '\pm {0:.2f}\PDFscale'.format(abs(pdf_scale))
 
-output_file.write('Latex 4 paper                : ' + xsec_string + ' ' + syststat_string + ' ' + pdf_scale_string + ' \, \mathrm{{fb}} \\' + '\\ \n')
+output_file.write('Latex 4 paper                : ' + xsec_string + syststat_string + pdf_scale_string + '\fb')
 output_file.close()
